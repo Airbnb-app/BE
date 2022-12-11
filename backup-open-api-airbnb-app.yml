@@ -1,0 +1,876 @@
+openapi: 3.0.0
+info:
+  description: |
+    Open API document for Airbnb App Project
+  version: "1.0.0"
+  title: Airbnb App Project
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license: 
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: Base URL Server GCP
+    url: http://<ip server>:<port>
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/yusnarsetiyadi/OpenAPI-Airbnb-APP-Project/1.0.0
+  - description: BE servers
+    url: https://{environment}.api.alta.id
+    variables:
+      environment:
+        default: dev
+        enum:
+          - "dev"
+          - "prod"
+tags:
+  - name: Auth
+    description:  Manage fitur Auth
+  - name: Users 
+    description: Manage fitur User  
+  - name: Homestays
+    description:  Manage fitur Homestay
+  - name: Reservations
+    description:  Manage fitur Reservation
+  - name: Feedbacks
+    description:  Manage fitur Feedback
+
+
+paths:
+
+### Endpoint Auth
+  /login:
+    post:
+      summary: "Login User"
+      tags:
+      - "Auth"
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                "email":
+                  type: string
+                "password":
+                  type: string
+            example:
+              email: "budi123@gmail.com"
+              password: "123"
+      responses:
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithData"
+              example:
+                status: "Success"
+                message: "Login Success"
+                data:
+                  id: 1
+                  name: "Budiman"
+                  gender: "Pria"
+                  phone: "08123"
+                  email: "budi123@gmail.com"
+                  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NzAwMzYwMjcsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoxfQ.pT-FmSraUUb8HY73ofYbbt3vFgbej0XaHP9VMas8Q44"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"   
+
+### Endpoint Users
+  /users:
+    post:
+      tags:
+        - Users
+      summary: "Create User" 
+      description: "Register User."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InsertUserObject"
+            example:
+              name: "Budiman"
+              gender: "Pria"
+              phone: "08123"
+              email: "budi123@gmail.com"
+              password: "123"
+      responses:
+        '201':
+          description: "Success Create User"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "Success"
+                message: "User successfully created" 
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      summary: "Get User by Id"
+      description: "Get data user using id user at path parameter. Only return 1 data."
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "Id user to get data"
+          required: true
+          in: path
+          schema:
+            description: "Id user 1"
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Success Get User by Id"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithData"
+              example:
+                  status: "Success"
+                  message: "Success Get User by Id"
+                  data:
+                    id: 1
+                    name: "Budiman"
+                    gender: "Pria"
+                    phone: "08123"
+                    email: "budi123@gmail.com"
+                    password: "123"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+    put:
+      tags:
+        - Users
+      summary: "Update User"
+      description: "Update User using request body and using id for reference at path parameter."
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "Id user to update data"
+          required: true
+          in: path
+          schema:
+            description: "Id user 1"
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: "#/components/schemas/EditUserObject"
+            example:
+              name: "Budiman"
+              gender: "Pria"
+              phone: "08123"
+              email: "budi123@gmail.com"
+              password: "123"
+      responses:
+        '200':
+          description: "Success update User"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData" 
+              example:
+                  status: "Success"
+                  message: "Success Update user."
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+    delete:
+      tags:
+        - Users
+      summary: "Delete User"
+      description: "Delete User using id at path parameter as reference."
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "Id user to delete data."
+          required: true
+          in: path
+          schema:
+            description: "Id user 1"
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Success Delete User."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData" 
+              example:
+                status: "Success"
+                message: "Success Delete user"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+### Endpoint Homestays
+  /homestays:
+    post:
+      tags:
+        - Homestays
+      summary: "Create Homestay" 
+      description: "Create New Homestay"
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InsertHomestayObject"
+            example:
+              name: "Villa puncak"
+              image: "<file image>"
+              description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+              price: 2000000
+      responses:
+        '201':
+          description: "Success Create Homestay"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "Success"
+                message: "Success Create New Homestay"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+    get:
+      tags:
+        - Homestays
+      summary: "Get All Homestay And Search"
+      description: "Get all homestay and can use query parameter to search. Input using lowercase"
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: ""
+          description: "No value in parameter."
+          required: false
+          in: query
+          schema:
+            type: string
+            example: ""
+        - name: name
+          description: "Homestay Name"
+          required: false
+          in: query
+          schema:
+            type: string
+            example: "Villa puncak"
+      responses:
+        '200':
+          description: A list of Homestay
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithData"
+              example:
+                  status: "Success"
+                  message: "Success get all homestay"
+                  data:
+                    - id: 1
+                      name: "Villa puncak"
+                      image: "<file image>"
+                      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                      price: 2000000
+                      user_id: "1"
+                    - id: 2
+                      name: "Villa puncak"
+                      image: "<file image>"
+                      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                      price: 2000000
+                      user_id: "2"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+  /homestays/{id}:
+    get:
+      tags:
+        - Homestays
+      summary: "Get Homestays by Id"
+      description: "Get Homestay using id class at path parameter. Only return 1 data."
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "Id homestay to get data"
+          required: true
+          in: path
+          schema:
+            description: "Id homestay 1"
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Success Get Homestay by Id"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithData"
+              example:
+                  status: "Success"
+                  message: "Success Get Homestay by Id"
+                  data:
+                    id: 1
+                    name: "Villa puncak"
+                    image: "<file image>"
+                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                    price: 2000000
+                    user_id: "1"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+    put:
+      tags:
+        - Homestays
+      summary: "Update Homestays"
+      description: "Update Homestay using request body and using id for reference at path parameter."
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "Id homestay to update data"
+          required: true
+          in: path
+          schema:
+            description: "Id homestay 1"
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: "#/components/schemas/EditHomestayObject"
+            example:
+              name: "Villa puncak"
+              image: "<file image>"
+              description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+              price: 2000000
+      responses:
+        '200':
+          description: "Success Update Homestay"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData" 
+              example:
+                  status: "Success"
+                  message: "Success Update Homestay"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+    delete:
+      tags:
+        - Homestays
+      summary: "Delete Homestays"
+      description: "Delete homestay using id at path parameter as reference."
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "Id homestay to delete data."
+          required: true
+          in: path
+          schema:
+            description: "Id homestay 1."
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Success Delete Homestay"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData" 
+              example:
+                  status: "Success"
+                  message: "Success Delete Homestay"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+### Endpoint Reservations
+  /reservations/check:
+    post:
+      tags:
+        - Reservations
+      summary: "Create Reservation" 
+      description: "Create New Reservation"
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InsertReservationObject"
+            example:
+              homestay_id: "1"
+              start_date: "11-12-2022"
+              end_date: "12-12-2022"
+              reservation_total: 2
+              price_total: 4000000
+      responses:
+        '201':
+          description: "Success check"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "Success"
+                message: "available reservation"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+  /reservations:
+    post:
+      tags:
+        - Reservations
+      summary: "Create reservation payment"
+      description: "Insert data payment for reservation"
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InsertReservationObject"
+            example:
+              homestay_id: "1"
+              start_date: "11-12-2022"
+              end_date: "12-12-2022"
+              reservation_total: 2
+              price_total: 4000000
+              payments: 
+                credit_card: "visa"
+                name: "budiman"
+                card_number: "0110 4567 8795 4523"
+                month: "april"
+                year: "2021"
+      responses:
+        '200':
+          description: "Success reservations"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "Success"
+                message: "Success reservation, see you later"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+    get:
+      tags:
+        - Reservations
+      summary: "Get all data reservation from user"
+      description: "get all your data reservation"
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: ""
+          description: "No value in parameter."
+          required: false
+          in: query
+          schema:
+            type: string
+            example: ""
+        - name: name
+          description: "Homestay Name"
+          required: false
+          in: query
+          schema:
+            type: string
+            example: "Villa puncak"
+      responses:
+        '200':
+          description: "Success update data"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithData"
+              example:
+                  status: "Success"
+                  message: "Success Get Homestay by Id"
+                  data:
+                    - reservation_id: 1
+                      homestay_id: "1"
+                      homestay_name: "Villa puncak"
+                      user_id: "1"
+                      start_date: "11-12-2022"
+                      end_date: "12-12-2022"
+                      reservation_total: 2
+                      price_total: 4000000
+                    - reservation_id: 2
+                      homestay_id: "2"
+                      homestay_name: "Villa papua"
+                      user_id: "2"
+                      start_date: "11-12-2022"
+                      end_date: "12-12-2022"
+                      reservation_total: 2
+                      price_total: 4000000
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+### Endpoint Feedbacks
+  /feedbacks:
+    post:
+      tags:
+        - Feedbacks
+      summary: "Create Feedback" 
+      description: "Create New Feedback for homestay"
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InsertFeedbackObject"
+            example:
+              rating: "*****"
+              feedback: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum convallis tortor eget scelerisque. Sed diam risus, tincidunt at lacinia a, hendrerit at massa. Maecenas tincidunt convallis rhoncus. Maecenas augue tellus, interdum non nulla a, bibendum dapibus nulla. Nullam at lorem diam. Integer nec urna commodo, gravida est fringilla, ultricies velit. Suspendisse potenti."
+              homestay_id: "1"
+      responses:
+        '201':
+          description: "Success create data"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "Success"
+                message: "Success add feedback"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+    delete:
+      tags:
+        - Feedbacks
+      summary: "Delete Feedback"
+      description: "Delete Feedback using id at path parameter as reference."
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "Id feedback to delete"
+          required: true
+          in: path
+          schema:
+            description: "Id log 1."
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Success Delete delete"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData" 
+              example:
+                  status: "Success"
+                  message: "Success Delete feedback"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+
+
+
+
+####################################
+#  COMPONENTS
+####################################
+components:
+  securitySchemes:
+    JWTAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "JWT Token that generate after login."
+
+  schemas:
+
+### User Schemas
+    "InsertUserObject":
+      type: object
+      properties:
+        "name":
+          type: string
+        "gender":
+          type: string
+        "phone":
+          type: string
+        "email":
+          type: string
+        "password":
+          type: string    
+    "EditUserObject":
+      type: object
+      properties:
+        "name":
+          type: string
+        "gender":
+          type: string
+        "phone":
+          type: string
+        "email":
+          type: string
+        "password":
+          type: string 
+
+### Homestay Schemas
+    "InsertHomestayObject":
+      type: object
+      properties:
+        "name":
+          type: string
+        "gender":
+          type: string
+        "phone":
+          type: string
+        "email":
+          type: string
+        "password":
+          type: string    
+    "EditHomestayObject":
+      type: object
+      properties:
+        "name":
+          type: string
+        "gender":
+          type: string
+        "phone":
+          type: string
+        "email":
+          type: string
+        "password":
+          type: string
+
+### Reservations Schemas
+    "InsertReservationObject":
+      type: object
+      properties:
+        "homestay_id":
+          type: string
+        "start_date":
+          type: string
+        "end_date":
+          type: string
+        "reservation_total":
+          type: integer
+        "price_total":
+          type: integer   
+    "EditReservationObject":
+      type: object
+      properties:
+        "homestay_id":
+          type: string
+        "start_date":
+          type: string
+        "end_date":
+          type: string
+        "reservation_total":
+          type: integer
+        "price_total":
+          type: integer         
+
+### Feedbacks Schemas
+    "InsertFeedbackObject":
+      type: object
+      properties:
+        "rating":
+          type: string
+        "feedback":
+          type: string
+        "homestay_id":
+          type: string        
+
+### Other Schemas
+    "ResponseWithoutData":
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+    "ResponseWithData":
+      type: object
+      properties:
+        status:
+          type: string
+        message: 
+          type: string
+        data:
+          type: object
+
+### Responses Schemas
+  responses:
+    '200':
+      description: "Success Process Data"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message: 
+                type: string
+              data:
+                type: object
+    '201':
+      description: "Success Create Data"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message: 
+                type: string
+              data:
+                type: object
+    '400':
+      description: "Wrong Request From User"
+      content:
+        "application/json":
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+          example:
+            message: "Process Failed. Please check your input."
+    '401':
+      description: "Authorization information is missing or invalid."
+      content:
+        "application/json":
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+          example:
+            message: "Process Failed. User not authorized for this request."
+    '404':
+      description: "Page not found or wrong url. Please check again."
+      content:
+        "application/json":
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+          example:
+            message: "Process Failed. User not authorized for this request."
+    '500':
+      description: "Error process on server"
+      content:
+        "application/json":
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+          example:
+            message: "Process Failed. Please check server."
