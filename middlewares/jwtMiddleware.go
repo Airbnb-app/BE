@@ -25,11 +25,12 @@ func JWTMiddleware() echo.MiddlewareFunc {
 	})
 }
 
-func CreateToken(userId int, role string) (string, error) {
+func CreateToken(userId int, role string, name string) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["authorized"] = true
 	claims["userId"] = userId
 	claims["role"] = role
+	claims["name"] = name
 	claims["exp"] = time.Now().Add(time.Hour * 24).Unix() //Token expires after 1 hour
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString([]byte(key))
@@ -82,4 +83,14 @@ func UserOnlySameId(next echo.HandlerFunc) echo.HandlerFunc {
 		return next(e)
 
 	}
+}
+
+func ExtractTokenUserName(e echo.Context) string {
+	user := e.Get("user").(*jwt.Token)
+	if user.Valid {
+		claims := user.Claims.(jwt.MapClaims)
+		name := claims["name"].(string)
+		return name
+	}
+	return ""
 }

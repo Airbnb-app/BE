@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	user "github.com/GP-3-Kelompok-2/airbnb-app-project/features/user/repository"
-
 	"github.com/GP-3-Kelompok-2/airbnb-app-project/config"
+	// homestayRepo "github.com/GP-3-Kelompok-2/airbnb-app-project/features/homestay/repository"
+	// feedbackRepo "github.com/GP-3-Kelompok-2/airbnb-app-project/features/feedback/repository"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -18,11 +18,13 @@ func InitDB(cfg *config.AppConfig) *gorm.DB {
 		log.Fatal("Cannot connect to DB")
 	}
 
-	migrateDB(db)
+	// migrateDB(db)
 
 	return db
 }
 
-func migrateDB(db *gorm.DB) {
-	db.AutoMigrate(&user.User{})
-}
+// func MigrateDB(db *gorm.DB) {
+// 	// db.AutoMigrate(&userRepo.User{})
+// 	// db.AutoMigrate(&homestayRepo.Homestay{}) //updated for this project
+// 	// db.AutoMigrate(&feedbackRepo.feedback{}) //updated for this project
+// }

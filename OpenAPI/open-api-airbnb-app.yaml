@@ -12,8 +12,8 @@ info:
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 servers:
   # Added by API Auto Mocking Plugin
-  - description: Base URL Server GCP
-    url: http://<ip server>:<port>
+  - description: Base URL Server AWS
+    url: http://18.143.102.15:8080
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/yusnarsetiyadi/OpenAPI-Airbnb-APP-Project/1.0.0
   - description: BE servers
@@ -72,8 +72,7 @@ paths:
                 data:
                   id: 1
                   name: "Budiman"
-                  gender: "Pria"
-                  phone: "08123"
+                  role: "Hoster"
                   email: "budi123@gmail.com"
                   token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NzAwMzYwMjcsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoxfQ.pT-FmSraUUb8HY73ofYbbt3vFgbej0XaHP9VMas8Q44"
         "400" :
@@ -98,8 +97,7 @@ paths:
               $ref: "#/components/schemas/InsertUserObject"
             example:
               name: "Budiman"
-              gender: "Pria"
-              phone: "08123"
+              role: "User"
               email: "budi123@gmail.com"
               password: "123"
       responses:
@@ -151,10 +149,8 @@ paths:
                   data:
                     id: 1
                     name: "Budiman"
-                    gender: "Pria"
-                    phone: "08123"
+                    role: "User"
                     email: "budi123@gmail.com"
-                    password: "123"
         "400" :
           $ref : "#/components/responses/400"  
         "401" :
@@ -187,8 +183,7 @@ paths:
                 $ref: "#/components/schemas/EditUserObject"
             example:
               name: "Budiman"
-              gender: "Pria"
-              phone: "08123"
+              role: "User"
               email: "budi123@gmail.com"
               password: "123"
       responses:
@@ -244,6 +239,40 @@ paths:
           $ref : "#/components/responses/404"  
         '500':
           $ref: "#/components/responses/500"
+  /users/upgrade:
+    post:
+      tags:
+        - Users
+      summary: "Upgrade User Permission" 
+      description: "Upgrade User Permission From Normal User to Hoster"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/UpgradeUserObject"
+            example:
+              file_1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              file_2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              file_3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+      responses:
+        '201':
+          description: "Success Upgrade User"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "Success"
+                message: "User successfully upgrade" 
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500" 
 
 ### Endpoint Homestays
   /homestays:
@@ -262,9 +291,12 @@ paths:
               $ref: "#/components/schemas/InsertHomestayObject"
             example:
               name: "Villa puncak"
-              image: "<file image>"
+              image_1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image_2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image_3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              address: "somewhere"
+              price per night: 2000000
               description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-              price: 2000000
       responses:
         '201':
           description: "Success Create Homestay"
@@ -291,13 +323,6 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: ""
-          description: "No value in parameter."
-          required: false
-          in: query
-          schema:
-            type: string
-            example: ""
         - name: name
           description: "Homestay Name"
           required: false
@@ -318,16 +343,22 @@ paths:
                   data:
                     - id: 1
                       name: "Villa puncak"
-                      image: "<file image>"
+                      image_1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+                      image_2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+                      image_3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+                      address: "somewhere"
+                      price_per_night: 2000000
                       description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-                      price: 2000000
-                      user_id: "1"
+                      owner: "someone"
                     - id: 2
                       name: "Villa puncak"
-                      image: "<file image>"
+                      image_1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+                      image_2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+                      image_3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+                      address: "somewhere"
+                      price_per_night: 2000000
                       description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-                      price: 2000000
-                      user_id: "2"
+                      owner: "someone"
         "400" :
           $ref : "#/components/responses/400"  
         "401" :
@@ -367,10 +398,13 @@ paths:
                   data:
                     id: 1
                     name: "Villa puncak"
-                    image: "<file image>"
+                    image_1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+                    image_2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+                    image_3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+                    address: "somewhere"
+                    price_per_night: 2000000
                     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-                    price: 2000000
-                    user_id: "1"
+                    owner: "someone"
         "400" :
           $ref : "#/components/responses/400"  
         "401" :
@@ -403,9 +437,12 @@ paths:
                 $ref: "#/components/schemas/EditHomestayObject"
             example:
               name: "Villa puncak"
-              image: "<file image>"
+              image_1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image_2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image_3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              address: "somewhere"
+              price_per_night: 2000000
               description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-              price: 2000000
       responses:
         '200':
           description: "Success Update Homestay"
@@ -476,21 +513,23 @@ paths:
             schema:
               $ref: "#/components/schemas/InsertReservationObject"
             example:
-              homestay_id: "1"
-              start_date: "11-12-2022"
-              end_date: "12-12-2022"
-              reservation_total: 2
-              price_total: 4000000
+              homestay_id: 1
+              start_date: "2022-12-11"
+              end_date: "2022-12-12"
+
       responses:
         '201':
           description: "Success check"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseWithoutData"
+                $ref: "#/components/schemas/ResponseWithData"
               example:
                 status: "Success"
                 message: "available reservation"
+                data: 
+                  duration: 2
+                  price_total: 4000000
         "400" :
           $ref : "#/components/responses/400"  
         "401" :
@@ -515,15 +554,16 @@ paths:
             schema:
               $ref: "#/components/schemas/InsertReservationObject"
             example:
-              homestay_id: "1"
-              start_date: "11-12-2022"
-              end_date: "12-12-2022"
-              reservation_total: 2
-              price_total: 4000000
+              homestay_id: 1
+              start_date: "2022-12-11"
+              end_date: "2022-12-12"
+              duration: 2
+              total_price: 4000000
               payments: 
                 credit_card: "visa"
                 name: "budiman"
                 card_number: "0110 4567 8795 4523"
+                cvv: "579"
                 month: "april"
                 year: "2021"
       responses:
@@ -552,21 +592,7 @@ paths:
       description: "get all your data reservation"
       security:
         - JWTAuth: []
-      parameters:
-        - name: ""
-          description: "No value in parameter."
-          required: false
-          in: query
-          schema:
-            type: string
-            example: ""
-        - name: name
-          description: "Homestay Name"
-          required: false
-          in: query
-          schema:
-            type: string
-            example: "Villa puncak"
+      
       responses:
         '200':
           description: "Success update data"
@@ -578,22 +604,18 @@ paths:
                   status: "Success"
                   message: "Success Get Homestay by Id"
                   data:
-                    - reservation_id: 1
-                      homestay_id: "1"
+                    - homestay_id: 1
                       homestay_name: "Villa puncak"
-                      user_id: "1"
-                      start_date: "11-12-2022"
-                      end_date: "12-12-2022"
-                      reservation_total: 2
-                      price_total: 4000000
-                    - reservation_id: 2
-                      homestay_id: "2"
-                      homestay_name: "Villa papua"
-                      user_id: "2"
-                      start_date: "11-12-2022"
-                      end_date: "12-12-2022"
-                      reservation_total: 2
-                      price_total: 4000000
+                      start_date: "2022-12-11"
+                      end_date: "2022-12-12"
+                      address: "somewhere"
+                      total_price: 4000000
+                    - homestay_id: 2
+                      homestay_name: "Villa puncak"
+                      start_date: "2022-12-11"
+                      end_date: "2022-12-12"
+                      address: "somewhere"
+                      total_price: 4000000
         "400" :
           $ref : "#/components/responses/400"  
         "401" :
@@ -619,9 +641,9 @@ paths:
             schema:
               $ref: "#/components/schemas/InsertFeedbackObject"
             example:
+              homestay_id: 1
               rating: "*****"
               feedback: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum convallis tortor eget scelerisque. Sed diam risus, tincidunt at lacinia a, hendrerit at massa. Maecenas tincidunt convallis rhoncus. Maecenas augue tellus, interdum non nulla a, bibendum dapibus nulla. Nullam at lorem diam. Integer nec urna commodo, gravida est fringilla, ultricies velit. Suspendisse potenti."
-              homestay_id: "1"
       responses:
         '201':
           description: "Success create data"
@@ -640,44 +662,6 @@ paths:
           $ref : "#/components/responses/404"  
         '500':
           $ref: "#/components/responses/500"
-
-    delete:
-      tags:
-        - Feedbacks
-      summary: "Delete Feedback"
-      description: "Delete Feedback using id at path parameter as reference."
-      security:
-        - JWTAuth: []
-      parameters:
-        - name: id
-          description: "Id feedback to delete"
-          required: true
-          in: path
-          schema:
-            description: "Id log 1."
-            type: integer
-            example: 1
-      responses:
-        '200':
-          description: "Success Delete delete"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ResponseWithoutData" 
-              example:
-                  status: "Success"
-                  message: "Success Delete feedback"
-        "400" :
-          $ref : "#/components/responses/400"  
-        "401" :
-          $ref : "#/components/responses/401"  
-        "404" :
-          $ref : "#/components/responses/404"  
-        '500':
-          $ref: "#/components/responses/500"
-
-
-
 
 
 ####################################
@@ -699,9 +683,7 @@ components:
       properties:
         "name":
           type: string
-        "gender":
-          type: string
-        "phone":
+        "role":
           type: string
         "email":
           type: string
@@ -712,41 +694,64 @@ components:
       properties:
         "name":
           type: string
-        "gender":
-          type: string
-        "phone":
+        "role":
           type: string
         "email":
           type: string
         "password":
           type: string 
-
+    "UpgradeUserObject":
+      type: object
+      properties:
+        "file 1":
+          type: string
+          format: binary
+        "file 2":
+          type: string
+          format: binary
+        "file 3":
+          type: string
+          format: binary
 ### Homestay Schemas
     "InsertHomestayObject":
       type: object
       properties:
         "name":
           type: string
-        "gender":
+        "address":
           type: string
-        "phone":
+        "image 1":
           type: string
-        "email":
+          format: binary
+        "image 2":
           type: string
-        "password":
+          format: binary
+        "image 3":
+          type: string
+          format: binary
+        "price per night":
+          type: integer
+        "description":
           type: string    
     "EditHomestayObject":
       type: object
       properties:
         "name":
           type: string
-        "gender":
+        "address":
           type: string
-        "phone":
+        "image 1":
           type: string
-        "email":
+          format: binary
+        "image 2":
           type: string
-        "password":
+          format: binary
+        "image 3":
+          type: string
+          format: binary
+        "price per night":
+          type: integer
+        "description":
           type: string
 
 ### Reservations Schemas
@@ -754,15 +759,11 @@ components:
       type: object
       properties:
         "homestay_id":
-          type: string
+          type: integer
         "start_date":
           type: string
         "end_date":
-          type: string
-        "reservation_total":
-          type: integer
-        "price_total":
-          type: integer   
+          type: string 
     "EditReservationObject":
       type: object
       properties:
@@ -774,13 +775,15 @@ components:
           type: string
         "reservation_total":
           type: integer
-        "price_total":
+        "total_price":
           type: integer         
 
 ### Feedbacks Schemas
     "InsertFeedbackObject":
       type: object
       properties:
+        "homestay id":
+          type: integer
         "rating":
           type: string
         "feedback":
