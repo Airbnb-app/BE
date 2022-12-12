@@ -6,6 +6,7 @@ import (
 
 	"github.com/GP-3-Kelompok-2/airbnb-app-project/config"
 	// homestayRepo "github.com/GP-3-Kelompok-2/airbnb-app-project/features/homestay/repository"
+	// feedbackRepo "github.com/GP-3-Kelompok-2/airbnb-app-project/features/feedback/repository"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -24,7 +25,7 @@ func InitDB(cfg *config.AppConfig) *gorm.DB {
 
 func MigrateDB(db *gorm.DB) {
 	// db.AutoMigrate(&userRepo.User{})
-	// db.AutoMigrate(&homestayRepo.Homestay{})
+	// db.AutoMigrate(&homestayRepo.Homestay{}) //updated for this project
 	// db.AutoMigrate(&menteeRepo.Mentee{})
-	// db.AutoMigrate(&logRepo.Log{})
+	// db.AutoMigrate(&feedbackRepo.feedback{}) //updated for this project
 }
