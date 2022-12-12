@@ -23,9 +23,8 @@ func InitDB(cfg *config.AppConfig) *gorm.DB {
 	return db
 }
 
-func MigrateDB(db *gorm.DB) {
-	// db.AutoMigrate(&userRepo.User{})
-	// db.AutoMigrate(&homestayRepo.Homestay{}) //updated for this project
-	// db.AutoMigrate(&menteeRepo.Mentee{})
-	// db.AutoMigrate(&feedbackRepo.feedback{}) //updated for this project
-}
+// func MigrateDB(db *gorm.DB) {
+// 	// db.AutoMigrate(&userRepo.User{})
+// 	// db.AutoMigrate(&homestayRepo.Homestay{}) //updated for this project
+// 	// db.AutoMigrate(&feedbackRepo.feedback{}) //updated for this project
+// }
