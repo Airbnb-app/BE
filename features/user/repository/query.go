@@ -89,7 +89,7 @@ func (repo *userRepository) FindUser(email string) (result user.Core, err error)
 
 func (repo *userRepository) Upgrade(input user.Core, id uint) error {
 	userGorm := fromCore(input)
-	tx := repo.db.Create(&userGorm) // proses update
+	tx := repo.db.Create(&userGorm.Image) // proses update
 	if tx.Error != nil {
 		return tx.Error
 	}
