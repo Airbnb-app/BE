@@ -7,6 +7,7 @@ type InsertRequest struct {
 	Email    string `json:"email" form:"email"`
 	Password string `json:"password" form:"password"`
 	Role     string `json:"role" form:"role"`
+	Image1   string `json:"image1" form:"image1"`
 }
 
 type UpdateRequest struct {
@@ -25,6 +26,7 @@ func toCore(i interface{}) user.Core {
 			Email:    cnv.Email,
 			Password: cnv.Password,
 			Role:     cnv.Role,
+			Image1:   cnv.Image1,
 		}
 
 	case UpdateRequest:
