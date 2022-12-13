@@ -75,9 +75,9 @@ func (d *HomestayDelivery) CreateHomestay(c echo.Context) error {
 			return errors.New("registration failed. cannot upload data")
 		}
 		log.Print(urlImage3)
-		dataInput.Image2 = urlImage3
+		dataInput.Image3 = urlImage3
 	} else {
-		dataInput.Image2 = "https://img1.wikia.nocookie.net/__cb20130610133347/onepiece/it/images/3/3d/Noland_bugiardo_2.png"
+		dataInput.Image3 = "https://img1.wikia.nocookie.net/__cb20130610133347/onepiece/it/images/3/3d/Noland_bugiardo_2.png"
 	}
 
 	dataCore := requestToCore(dataInput)
