@@ -18,7 +18,7 @@ type Feedback struct {
 type Homestay struct {
 	ID       uint
 	Name     string
-	Feedback []Feedback `gorm:"foreignKey:HomestayID"`
+	Feedback []Feedback
 }
 
 type User struct {
