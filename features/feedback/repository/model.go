@@ -12,20 +12,20 @@ type Feedback struct {
 	UserId     uint
 	UserName   string
 	HomestayID uint
-	User       User
+	// User       User
 }
 
-type Homestay struct {
-	ID       uint
-	Name     string
-	Feedback []Feedback
-}
+// type Homestay struct {
+// 	ID       uint
+// 	Name     string
+// 	Feedback []Feedback
+// }
 
-type User struct {
-	ID       uint
-	Name     string
-	Feedback []Feedback
-}
+// type User struct {
+// 	ID       uint
+// 	Name     string
+// 	Feedback []Feedback
+// }
 
 func fromCore(dataCore feedback.FeedbackCore) Feedback {
 	feedbackGorm := Feedback{

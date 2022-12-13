@@ -14,6 +14,7 @@ type User struct {
 	Password string `valudate:"required"`
 	Role     string `valudate:"required"`
 	Homestay []Homestay
+	Feedback []Feedback
 }
 
 type Homestay struct {
@@ -24,6 +25,12 @@ type Homestay struct {
 	Description   string
 	PricePerNight int
 	UserID        uint
+}
+
+type Feedback struct {
+	gorm.Model
+	Feedback string
+	UserID   uint
 }
 
 // DTO
