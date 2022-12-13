@@ -6,7 +6,7 @@ type FeedbackCore struct {
 	Feedback   string
 	UserId     uint
 	UserName   string
-	HomestayId uint
+	HomestayID uint
 }
 
 type ServiceInterface interface {
