@@ -44,7 +44,7 @@ func (d *HomestayDelivery) CreateHomestay(c echo.Context) error {
 	userId := middlewares.ExtractTokenUserId(c)
 	dataInput.UserID = uint(userId)
 
-	image1, _ := c.FormFile("image1")
+	image1, _ := c.FormFile("file")
 	if image1 != nil {
 		urlImage1, err := helper.UploadImage(c)
 		if err != nil {
