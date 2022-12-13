@@ -23,6 +23,15 @@ type Homestay struct {
 	Feedback      []Feedback
 }
 
+type HomestayForUser struct {
+	ID            uint
+	Name          string
+	Address       string
+	Image1        string
+	Description   string
+	PricePerNight int
+}
+
 type User struct {
 	gorm.Model
 	Name     string
