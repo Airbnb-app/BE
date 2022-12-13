@@ -79,7 +79,7 @@ func (dataModel *Homestay) toCore() homestay.HomestayCore {
 		Image3:        dataModel.Image3,
 		Description:   dataModel.Description,
 		PricePerNight: dataModel.PricePerNight,
-		User:          homestay.User{dataModel.User.ID, dataModel.User.Name},
+		User:          homestay.User{ID: dataModel.User.ID, Name: dataModel.User.Name},
 		Feedback:      arrFeedbacks,
 	}
 }
