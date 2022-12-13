@@ -64,10 +64,11 @@ func (dataModel *Homestay) toCore() homestay.HomestayCore {
 	var arrFeedbacks []homestay.Feedback
 	for _, v := range dataModel.Feedback {
 		arrFeedbacks = append(arrFeedbacks, homestay.Feedback{
-			ID:       v.ID,
-			Rating:   v.Rating,
-			Feedback: v.Feedback,
-			UserName: v.UserName,
+			ID:         v.ID,
+			Rating:     v.Rating,
+			Feedback:   v.Feedback,
+			UserName:   v.UserName,
+			HomestayID: v.HomestayID,
 		})
 	}
 	return homestay.HomestayCore{
@@ -79,6 +80,7 @@ func (dataModel *Homestay) toCore() homestay.HomestayCore {
 		Image3:        dataModel.Image3,
 		Description:   dataModel.Description,
 		PricePerNight: dataModel.PricePerNight,
+		UserID:        dataModel.UserID,
 		User:          homestay.User{ID: dataModel.User.ID, Name: dataModel.User.Name},
 		Feedback:      arrFeedbacks,
 	}
