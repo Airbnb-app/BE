@@ -13,13 +13,22 @@ type HomestayCore struct {
 	PricePerNight int
 	BookedStart   time.Time
 	BookedEnd     time.Time
-	UserId        uint
+	UserID        uint
 	User          User
+	Feedback      []Feedback
 }
 
 type User struct {
 	ID   uint
 	Name string
+}
+
+type Feedback struct {
+	ID         uint
+	Rating     string
+	Feedback   string
+	UserName   string
+	HomestayID uint
 }
 
 type ServiceInterface interface {

@@ -16,7 +16,7 @@ func requestToCore(FeedbackInput FeedbackRequest) feedback.FeedbackCore {
 	return feedback.FeedbackCore{
 		UserId:     FeedbackInput.UserID,
 		UserName:   FeedbackInput.UserName,
-		HomestayId: FeedbackInput.HomestayID,
+		HomestayID: FeedbackInput.HomestayID,
 		Rating:     FeedbackInput.Rating,
 		Feedback:   FeedbackInput.Feedback,
 	}

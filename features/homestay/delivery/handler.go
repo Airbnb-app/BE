@@ -42,7 +42,7 @@ func (d *HomestayDelivery) CreateHomestay(c echo.Context) error {
 	}
 
 	userId := middlewares.ExtractTokenUserId(c)
-	dataInput.UserId = uint(userId)
+	dataInput.UserID = uint(userId)
 
 	image1, _ := c.FormFile("image1")
 	if image1 != nil {
@@ -96,7 +96,7 @@ func (d *HomestayDelivery) GetHomestayById(c echo.Context) error {
 		return c.JSON(http.StatusNotFound, helper.FailedResponse("requested resource was not found"))
 
 	}
-	dataResponse := fromCore(result)
+	dataResponse := fromCoreDetail(result)
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("Success Get Homestay by Id", dataResponse))
 }

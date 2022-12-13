@@ -18,8 +18,9 @@ type Homestay struct {
 	PricePerNight int
 	BookedStart   time.Time
 	BookedEnd     time.Time
-	UserId        uint
+	UserID        uint
 	User          User
+	Feedback      []Feedback
 }
 
 type HomestayForUser struct {
@@ -37,6 +38,14 @@ type User struct {
 	Homestay []Homestay
 }
 
+type Feedback struct {
+	gorm.Model
+	Rating     string
+	Feedback   string
+	UserName   string
+	HomestayID uint
+}
+
 func fromCore(dataCore homestay.HomestayCore) Homestay {
 	userGorm := Homestay{
 		Name:          dataCore.Name,
@@ -46,12 +55,21 @@ func fromCore(dataCore homestay.HomestayCore) Homestay {
 		Image3:        dataCore.Image3,
 		Description:   dataCore.Description,
 		PricePerNight: dataCore.PricePerNight,
-		UserId:        dataCore.UserId,
+		UserID:        dataCore.UserID,
 	}
 	return userGorm
 }
 
 func (dataModel *Homestay) toCore() homestay.HomestayCore {
+	var arrFeedbacks []homestay.Feedback
+	for _, v := range dataModel.Feedback {
+		arrFeedbacks = append(arrFeedbacks, homestay.Feedback{
+			ID:       v.ID,
+			Rating:   v.Rating,
+			Feedback: v.Feedback,
+			UserName: v.UserName,
+		})
+	}
 	return homestay.HomestayCore{
 		ID:            dataModel.ID,
 		Name:          dataModel.Name,
@@ -61,10 +79,8 @@ func (dataModel *Homestay) toCore() homestay.HomestayCore {
 		Image3:        dataModel.Image3,
 		Description:   dataModel.Description,
 		PricePerNight: dataModel.PricePerNight,
-		User: homestay.User{
-			ID:   dataModel.User.ID,
-			Name: dataModel.User.Name,
-		},
+		User:          homestay.User{dataModel.User.ID, dataModel.User.Name},
+		Feedback:      arrFeedbacks,
 	}
 }
 

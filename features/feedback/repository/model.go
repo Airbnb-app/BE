@@ -11,14 +11,14 @@ type Feedback struct {
 	Feedback   string
 	UserId     uint
 	UserName   string
-	HomestayId uint
+	HomestayID uint
 	User       User
 }
 
 type Homestay struct {
 	ID       uint
 	Name     string
-	Feedback []Feedback
+	Feedback []Feedback `gorm:"foreignKey:HomestayID"`
 }
 
 type User struct {
@@ -33,7 +33,7 @@ func fromCore(dataCore feedback.FeedbackCore) Feedback {
 		Feedback:   dataCore.Feedback,
 		UserId:     dataCore.UserId,
 		UserName:   dataCore.UserName,
-		HomestayId: dataCore.HomestayId,
+		HomestayID: dataCore.HomestayID,
 	}
 	return feedbackGorm
 }

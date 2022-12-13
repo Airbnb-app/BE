@@ -34,7 +34,7 @@ func (r *homestayRepository) InsertHomestay(data homestay.HomestayCore) (row int
 func (r *homestayRepository) GetHomestayById(id uint) (data homestay.HomestayCore, err error) {
 	var homestay Homestay
 
-	tx := r.db.First(&homestay, id)
+	tx := r.db.Preload("Feedback").First(&homestay, id)
 	if tx.Error != nil {
 		return data, tx.Error
 	}
