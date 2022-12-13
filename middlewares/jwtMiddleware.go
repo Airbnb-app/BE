@@ -57,6 +57,16 @@ func ExtractTokenUserRole(e echo.Context) string {
 	return ""
 }
 
+func ExtractTokenUserName(e echo.Context) string {
+	user := e.Get("user").(*jwt.Token)
+	if user.Valid {
+		claims := user.Claims.(jwt.MapClaims)
+		name := claims["name"].(string)
+		return name
+	}
+	return ""
+}
+
 func UserOnlySameId(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(e echo.Context) error {
 		user := e.Get("user").(*jwt.Token)
@@ -83,14 +93,4 @@ func UserOnlySameId(next echo.HandlerFunc) echo.HandlerFunc {
 		return next(e)
 
 	}
-}
-
-func ExtractTokenUserName(e echo.Context) string {
-	user := e.Get("user").(*jwt.Token)
-	if user.Valid {
-		claims := user.Claims.(jwt.MapClaims)
-		name := claims["name"].(string)
-		return name
-	}
-	return ""
 }
