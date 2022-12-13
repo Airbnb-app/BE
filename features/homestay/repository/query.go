@@ -51,7 +51,7 @@ func (r *homestayRepository) GetAllHomestays(keyword string) (data []homestay.Ho
 			return nil, tx.Error
 		}
 	} else {
-		tx := r.db.Where("name LIKE ?", "%"+keyword+"%").Find(&homestays)
+		tx := r.db.Preload("User").Where("name LIKE ?", "%"+keyword+"%").Find(&homestays)
 		if tx.Error != nil {
 			return nil, tx.Error
 		}
