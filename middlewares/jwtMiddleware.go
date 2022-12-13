@@ -1,12 +1,9 @@
 package middlewares
 
 import (
-	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/GP-3-Kelompok-2/airbnb-app-project/config"
-	"github.com/GP-3-Kelompok-2/airbnb-app-project/utils/helper"
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -67,30 +64,30 @@ func ExtractTokenUserName(e echo.Context) string {
 	return ""
 }
 
-func UserOnlySameId(next echo.HandlerFunc) echo.HandlerFunc {
-	return func(e echo.Context) error {
-		user := e.Get("user").(*jwt.Token)
-		if user.Valid {
-			claims := user.Claims.(jwt.MapClaims)
-			role := claims["role"].(string)
+// func UserOnlySameId(next echo.HandlerFunc) echo.HandlerFunc {
+// 	return func(e echo.Context) error {
+// 		user := e.Get("user").(*jwt.Token)
+// 		if user.Valid {
+// 			claims := user.Claims.(jwt.MapClaims)
+// 			role := claims["role"].(string)
 
-			// jika role bukan user (super admin) skip fungsi ini
-			if role == "User" {
-				userIdToken := claims["userId"].(float64)
-				idToken := int(userIdToken)
+// 			// jika role bukan user (super admin) skip fungsi ini
+// 			if role == "User" {
+// 				userIdToken := claims["userId"].(float64)
+// 				idToken := int(userIdToken)
 
-				userIdParam := e.Param("id")
-				idParam, errConv := strconv.Atoi(userIdParam)
-				if errConv != nil {
-					return e.JSON(http.StatusBadRequest, helper.FailedResponse("Error. Id must integer."))
-				}
+// 				userIdParam := e.Param("id")
+// 				idParam, errConv := strconv.Atoi(userIdParam)
+// 				if errConv != nil {
+// 					return e.JSON(http.StatusBadRequest, helper.FailedResponse("Error. Id must integer."))
+// 				}
 
-				if idToken != idParam {
-					return e.JSON(http.StatusUnauthorized, helper.FailedResponse("Error. User unauthorized to access data other user."))
-				}
-			}
-		}
-		return next(e)
+// 				if idToken != idParam {
+// 					return e.JSON(http.StatusUnauthorized, helper.FailedResponse("Error. User unauthorized to access data other user."))
+// 				}
+// 			}
+// 		}
+// 		return next(e)
 
-	}
-}
+// 	}
+// }

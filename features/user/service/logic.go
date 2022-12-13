@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"strings"
 
 	"github.com/GP-3-Kelompok-2/airbnb-app-project/features/user"
@@ -52,8 +53,8 @@ func (service *userService) Create(input user.Core) (err error) {
 	return nil
 }
 
-func (service *userService) Get() (data user.Core, err error) {
-	data, err = service.userRepository.Get()
+func (service *userService) Get(id uint) (data user.Core, err error) {
+	data, err = service.userRepository.Get(id)
 	if err != nil {
 		log.Error(err.Error())
 		return user.Core{}, err
@@ -62,12 +63,12 @@ func (service *userService) Get() (data user.Core, err error) {
 
 }
 
-func (service *userService) Update(input user.Core) error {
+func (service *userService) Update(input user.Core, id uint) error {
 	if input.Password != "" {
 		generate, _ := bcrypt.GenerateFromPassword([]byte(input.Password), 10)
 		input.Password = string(generate)
 	}
-	err := service.userRepository.Update(input)
+	err := service.userRepository.Update(input, id)
 	if err != nil {
 		log.Error(err.Error())
 		return err
@@ -76,11 +77,19 @@ func (service *userService) Update(input user.Core) error {
 	return nil
 }
 
-func (service *userService) Delete() error {
-	err := service.userRepository.Delete()
+func (service *userService) Delete(id uint) error {
+	err := service.userRepository.Delete(id)
 	if err != nil {
 		log.Error(err.Error())
 		return err
+	}
+	return nil
+}
+
+func (s *userService) Upgrade(data user.Core, id uint) error {
+	errUpgrade := s.userRepository.Upgrade(data, id)
+	if errUpgrade != nil {
+		return errors.New("failed to insert data, error query")
 	}
 	return nil
 }

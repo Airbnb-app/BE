@@ -31,10 +31,10 @@ func (repo *userRepository) Create(input user.Core) error {
 }
 
 // GetById implements user.RepositoryInterface
-func (repo *userRepository) Get() (data user.Core, err error) {
+func (repo *userRepository) Get(id uint) (data user.Core, err error) {
 	var user User
 
-	tx := repo.db.Preload("Homestay").First(&user)
+	tx := repo.db.Preload("Homestay").First(&user, id)
 
 	if tx.Error != nil {
 		return data, tx.Error
@@ -49,10 +49,10 @@ func (repo *userRepository) Get() (data user.Core, err error) {
 }
 
 // Update implements user.Repository
-func (repo *userRepository) Update(input user.Core) error {
+func (repo *userRepository) Update(input user.Core, id uint) error {
 	userGorm := fromCore(input)
 	var user User
-	tx := repo.db.Model(&user).Updates(&userGorm) // proses update
+	tx := repo.db.Model(&user).Where("id = ?", id).Updates(&userGorm) // proses update
 	if tx.Error != nil {
 		return tx.Error
 	}
@@ -62,14 +62,10 @@ func (repo *userRepository) Update(input user.Core) error {
 	return nil
 }
 
-// func (repo *userRepository) Upgrade(input user.Core, id int) error {
-
-// }
-
 // Delete implements user.Repository
-func (repo *userRepository) Delete() error {
+func (repo *userRepository) Delete(id uint) error {
 	var user User
-	tx := repo.db.Unscoped().Delete(&user) // proses delete
+	tx := repo.db.Unscoped().Delete(&user, id) // proses delete
 	if tx.Error != nil {
 		return tx.Error
 	}
@@ -89,4 +85,30 @@ func (repo *userRepository) FindUser(email string) (result user.Core, err error)
 	result = userData.toCore()
 
 	return result, nil
+}
+
+func (repo *userRepository) Upgrade(input user.Core, id uint) error {
+	userGorm := fromCore(input)
+	tx := repo.db.Create(&userGorm.Image1) // proses update
+	if tx.Error != nil {
+		return tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return errors.New("insert image1 failed")
+	}
+
+	yx := repo.db.First(&userGorm, id)
+	if yx.Error != nil {
+		return yx.Error
+	}
+	userGorm.Role = "Hoster"
+	xx := repo.db.Save(&userGorm)
+	if xx.Error != nil {
+		return xx.Error
+	}
+	if xx.RowsAffected == 0 {
+		return errors.New("upgrade failed")
+	}
+
+	return nil
 }
