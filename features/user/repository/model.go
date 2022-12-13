@@ -1,7 +1,7 @@
 package repository
 
 import (
-	homestay "github.com/GP-3-Kelompok-2/airbnb-app-project/features/homestay/repository"
+	// homestay "github.com/GP-3-Kelompok-2/airbnb-app-project/features/homestay/repository"
 	_user "github.com/GP-3-Kelompok-2/airbnb-app-project/features/user"
 	"gorm.io/gorm"
 )
@@ -13,7 +13,17 @@ type User struct {
 	Email    string `validate:"required,email"`
 	Password string `valudate:"required"`
 	Role     string `valudate:"required"`
-	Homestay []homestay.HomestayForUser
+	Homestay []Homestay
+}
+
+type Homestay struct {
+	gorm.Model
+	Name          string
+	Address       string
+	Image1        string
+	Description   string
+	PricePerNight int
+	UserID        uint
 }
 
 // DTO
@@ -51,6 +61,7 @@ func (dataModel *User) toCore() _user.Core {
 		Role:      dataModel.Role,
 		CreatedAt: dataModel.CreatedAt,
 		UpdatedAt: dataModel.UpdatedAt,
+		Homestay:  arrHomestay,
 	}
 }
 
