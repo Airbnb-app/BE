@@ -44,9 +44,9 @@ func (d *HomestayDelivery) CreateHomestay(c echo.Context) error {
 	userId := middlewares.ExtractTokenUserId(c)
 	dataInput.UserID = uint(userId)
 
-	image1, _ := c.FormFile("file")
+	image1, _ := c.FormFile("image1")
 	if image1 != nil {
-		urlImage1, err := helper.UploadImage(c)
+		urlImage1, err := helper.UploadImage(c, "image1")
 		if err != nil {
 			return errors.New("registration failed. cannot upload data")
 		}
@@ -58,7 +58,7 @@ func (d *HomestayDelivery) CreateHomestay(c echo.Context) error {
 
 	image2, _ := c.FormFile("image2")
 	if image2 != nil {
-		urlImage2, err := helper.UploadImage(c)
+		urlImage2, err := helper.UploadImage(c, "image2")
 		if err != nil {
 			return errors.New("registration failed. cannot upload data")
 		}
@@ -70,7 +70,7 @@ func (d *HomestayDelivery) CreateHomestay(c echo.Context) error {
 
 	image3, _ := c.FormFile("image3")
 	if image3 != nil {
-		urlImage3, err := helper.UploadImage(c)
+		urlImage3, err := helper.UploadImage(c, "image3")
 		if err != nil {
 			return errors.New("registration failed. cannot upload data")
 		}
@@ -125,7 +125,7 @@ func (d *HomestayDelivery) UpdateHomestay(c echo.Context) error {
 
 	image1, _ := c.FormFile("image1")
 	if image1 != nil {
-		urlImage1, err := helper.UploadImage(c)
+		urlImage1, err := helper.UploadImage(c, "image1")
 		if err != nil {
 			return errors.New("registration failed. cannot upload data")
 		}
@@ -137,7 +137,7 @@ func (d *HomestayDelivery) UpdateHomestay(c echo.Context) error {
 
 	image2, _ := c.FormFile("image2")
 	if image2 != nil {
-		urlImage2, err := helper.UploadImage(c)
+		urlImage2, err := helper.UploadImage(c, "image2")
 		if err != nil {
 			return errors.New("registration failed. cannot upload data")
 		}
@@ -149,14 +149,14 @@ func (d *HomestayDelivery) UpdateHomestay(c echo.Context) error {
 
 	image3, _ := c.FormFile("image3")
 	if image3 != nil {
-		urlImage3, err := helper.UploadImage(c)
+		urlImage3, err := helper.UploadImage(c, "image3")
 		if err != nil {
 			return errors.New("registration failed. cannot upload data")
 		}
 		log.Print(urlImage3)
-		dataInput.Image2 = urlImage3
+		dataInput.Image3 = urlImage3
 	} else {
-		dataInput.Image2 = "https://img1.wikia.nocookie.net/__cb20130610133347/onepiece/it/images/3/3d/Noland_bugiardo_2.png"
+		dataInput.Image3 = "https://img1.wikia.nocookie.net/__cb20130610133347/onepiece/it/images/3/3d/Noland_bugiardo_2.png"
 	}
 
 	dataUpdateCore := requestToCore(dataInput)
