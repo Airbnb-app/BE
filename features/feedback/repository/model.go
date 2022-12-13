@@ -15,6 +15,7 @@ type Feedback struct {
 	// User       User
 }
 
+// doesn't need
 // type Homestay struct {
 // 	ID       uint
 // 	Name     string
