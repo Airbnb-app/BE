@@ -118,8 +118,7 @@ paths:
           $ref : "#/components/responses/404"  
         '500':
           $ref: "#/components/responses/500"
-
-  /users/{id}:
+          
     get:
       tags:
         - Users
