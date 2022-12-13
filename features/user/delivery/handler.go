@@ -90,7 +90,7 @@ func (delivery *UserDelivery) Upgrade(c echo.Context) error {
 	userId := middlewares.ExtractTokenUserId(c)
 	x := uint(userId)
 	userInput := InsertRequest{}
-	errBind := c.Bind(&userInput.Image1) // menangkap data yg dikirim dari req body dan disimpan ke variabel
+	errBind := c.Bind(&userInput.Image) // menangkap data yg dikirim dari req body dan disimpan ke variabel
 	if errBind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data. "+errBind.Error()))
 	}
@@ -102,12 +102,35 @@ func (delivery *UserDelivery) Upgrade(c echo.Context) error {
 			return errors.New("registration failed. cannot upload data")
 		}
 		log.Print(urlImage1)
-		userInput.Image1 = urlImage1
+		userInput.Image.Image1 = urlImage1
 	} else {
-		userInput.Image1 = "https://img1.wikia.nocookie.net/__cb20130610133347/onepiece/it/images/3/3d/Noland_bugiardo_2.png"
+		userInput.Image.Image1 = "https://img1.wikia.nocookie.net/__cb20130610133347/onepiece/it/images/3/3d/Noland_bugiardo_2.png"
+	}
+	image2, _ := c.FormFile("image2")
+	if image2 != nil {
+		urlImage2, err := helper.UploadImage(c, "image2")
+		if err != nil {
+			return errors.New("registration failed. cannot upload data")
+		}
+		log.Print(urlImage2)
+		userInput.Image.Image2 = urlImage2
+	} else {
+		userInput.Image.Image2 = "https://img1.wikia.nocookie.net/__cb20130610133347/onepiece/it/images/3/3d/Noland_bugiardo_2.png"
 	}
 
-	dataCore := toCore(userInput.Image1)
+	image3, _ := c.FormFile("image3")
+	if image3 != nil {
+		urlImage3, err := helper.UploadImage(c, "image3")
+		if err != nil {
+			return errors.New("registration failed. cannot upload data")
+		}
+		log.Print(urlImage3)
+		userInput.Image.Image3 = urlImage3
+	} else {
+		userInput.Image.Image3 = "https://img1.wikia.nocookie.net/__cb20130610133347/onepiece/it/images/3/3d/Noland_bugiardo_2.png"
+	}
+
+	dataCore := toCore(userInput.Image)
 	err := delivery.userService.Upgrade(dataCore, x)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("Failed insert data. "+err.Error()))

@@ -14,7 +14,11 @@ type User struct {
 	Email    string `validate:"required,email"`
 	Password string `valudate:"required"`
 	Role     string `valudate:"required"`
-	Image1   string
+	Image    struct {
+		Image1 string
+		Image2 string
+		Image3 string
+	}
 	Homestay []homestay.Homestay
 	Feedback []Feedback
 }

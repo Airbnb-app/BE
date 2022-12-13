@@ -7,12 +7,16 @@ import (
 )
 
 type Core struct {
-	ID        uint
-	Name      string `valiidate:"required"`
-	Email     string `valiidate:"required,email,unique"`
-	Password  string `valiidate:"required"`
-	Role      string `validiate:"required"`
-	Image1    string
+	ID       uint
+	Name     string `valiidate:"required"`
+	Email    string `valiidate:"required,email,unique"`
+	Password string `valiidate:"required"`
+	Role     string `validiate:"required"`
+	Image    struct {
+		Image1 string
+		Image2 string
+		Image3 string
+	}
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	Homestay  []homestay.HomestayCore
