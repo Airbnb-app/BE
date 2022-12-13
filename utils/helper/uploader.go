@@ -47,7 +47,11 @@ func UploadImage(c echo.Context) (string, error) {
 
 	str := fileName(20)
 
-	godotenv.Load(".env")
+	if _, exist := os.LookupEnv("SECRET"); !exist {
+		if err := godotenv.Load(".env"); err != nil {
+			log.Println(err)
+		}
+	}
 
 	s3Config := &aws.Config{
 		Region:      aws.String(os.Getenv("AWS_REGION")),
