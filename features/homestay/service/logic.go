@@ -30,6 +30,10 @@ func (s *homestayService) CreateHomestay(data homestay.HomestayCore) (err error)
 // GetHomestayById implements homestay.ServiceInterface
 func (s *homestayService) GetHomestayById(id uint) (data homestay.HomestayCore, err error) {
 	data, err = s.homestayRepo.GetHomestayById(id)
+	if err != nil {
+		return data, errors.New("failed get data, error query")
+
+	}
 	return
 }
 
