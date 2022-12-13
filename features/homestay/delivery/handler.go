@@ -96,7 +96,7 @@ func (d *HomestayDelivery) GetHomestayById(c echo.Context) error {
 		return c.JSON(http.StatusNotFound, helper.FailedResponse("requested resource was not found"))
 
 	}
-	dataResponse := fromCore(result)
+	dataResponse := fromCoreDetail(result)
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("Success Get Homestay by Id", dataResponse))
 }

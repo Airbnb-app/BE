@@ -15,6 +15,28 @@ type HomestayResponse struct {
 	Owner         string `json:"owner"`
 }
 
+type HomestayDetailResponse struct {
+	ID            uint               `json:"id"`
+	Name          string             `json:"name"`
+	Address       string             `json:"address"`
+	Image1        string             `json:"image1"`
+	Image2        string             `json:"image2"`
+	Image3        string             `json:"image3"`
+	Description   string             `json:"description"`
+	PricePerNight int                `json:"price_per_night"`
+	UserId        uint               `json:"user_id"`
+	Owner         string             `json:"owner"`
+	Feedback      []FeedbackResponse `json:"feedback"`
+}
+
+type FeedbackResponse struct {
+	ID         uint   `json:"id"`
+	Rating     string `json:"rating"`
+	Feedback   string `json:"feedback"`
+	Poster     string `json:"poster"`
+	HomestayId uint   `json:"homestay_id"`
+}
+
 func fromCore(dataCore homestay.HomestayCore) HomestayResponse {
 	return HomestayResponse{
 		ID:            dataCore.ID,
@@ -27,6 +49,33 @@ func fromCore(dataCore homestay.HomestayCore) HomestayResponse {
 		PricePerNight: dataCore.PricePerNight,
 		UserId:        dataCore.UserId,
 		Owner:         dataCore.User.Name,
+	}
+}
+
+func fromCoreDetail(dataCore homestay.HomestayCore) HomestayDetailResponse {
+	var arrFeedbacks []FeedbackResponse
+
+	for _, v := range dataCore.Feedback {
+		arrFeedbacks = append(arrFeedbacks, FeedbackResponse{
+			ID:         v.ID,
+			Rating:     v.Rating,
+			Feedback:   v.Feedback,
+			Poster:     v.UserName,
+			HomestayId: v.HomestayId,
+		})
+	}
+	return HomestayDetailResponse{
+		ID:            dataCore.ID,
+		Name:          dataCore.Name,
+		Address:       dataCore.Address,
+		Image1:        dataCore.Image1,
+		Image2:        dataCore.Image2,
+		Image3:        dataCore.Image3,
+		Description:   dataCore.Description,
+		PricePerNight: dataCore.PricePerNight,
+		UserId:        dataCore.UserId,
+		Owner:         dataCore.User.Name,
+		Feedback:      arrFeedbacks,
 	}
 }
 
