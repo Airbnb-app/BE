@@ -42,7 +42,7 @@ func (d *HomestayDelivery) CreateHomestay(c echo.Context) error {
 	}
 
 	userId := middlewares.ExtractTokenUserId(c)
-	dataInput.UserId = uint(userId)
+	dataInput.UserID = uint(userId)
 
 	image1, _ := c.FormFile("image1")
 	if image1 != nil {

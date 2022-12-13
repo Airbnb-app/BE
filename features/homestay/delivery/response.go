@@ -11,7 +11,7 @@ type HomestayResponse struct {
 	Image3        string `json:"image3"`
 	Description   string `json:"description"`
 	PricePerNight int    `json:"price_per_night"`
-	UserId        uint   `json:"user_id"`
+	UserID        uint   `json:"user_id"`
 	Owner         string `json:"owner"`
 }
 
@@ -24,7 +24,7 @@ type HomestayDetailResponse struct {
 	Image3        string             `json:"image3"`
 	Description   string             `json:"description"`
 	PricePerNight int                `json:"price_per_night"`
-	UserId        uint               `json:"user_id"`
+	UserID        uint               `json:"user_id"`
 	Owner         string             `json:"owner"`
 	Feedback      []FeedbackResponse `json:"feedback"`
 }
@@ -34,7 +34,7 @@ type FeedbackResponse struct {
 	Rating     string `json:"rating"`
 	Feedback   string `json:"feedback"`
 	Poster     string `json:"poster"`
-	HomestayId uint   `json:"homestay_id"`
+	HomestayID uint   `json:"homestay_id"`
 }
 
 func fromCore(dataCore homestay.HomestayCore) HomestayResponse {
@@ -47,7 +47,7 @@ func fromCore(dataCore homestay.HomestayCore) HomestayResponse {
 		Image3:        dataCore.Image3,
 		Description:   dataCore.Description,
 		PricePerNight: dataCore.PricePerNight,
-		UserId:        dataCore.UserId,
+		UserID:        dataCore.UserID,
 		Owner:         dataCore.User.Name,
 	}
 }
@@ -61,7 +61,7 @@ func fromCoreDetail(dataCore homestay.HomestayCore) HomestayDetailResponse {
 			Rating:     v.Rating,
 			Feedback:   v.Feedback,
 			Poster:     v.UserName,
-			HomestayId: v.HomestayId,
+			HomestayID: v.HomestayID,
 		})
 	}
 	return HomestayDetailResponse{
@@ -73,7 +73,7 @@ func fromCoreDetail(dataCore homestay.HomestayCore) HomestayDetailResponse {
 		Image3:        dataCore.Image3,
 		Description:   dataCore.Description,
 		PricePerNight: dataCore.PricePerNight,
-		UserId:        dataCore.UserId,
+		UserID:        dataCore.UserID,
 		Owner:         dataCore.User.Name,
 		Feedback:      arrFeedbacks,
 	}

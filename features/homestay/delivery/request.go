@@ -10,7 +10,7 @@ type HomestayRequest struct {
 	Image3        string `json:"image3" form:"image3"`
 	Description   string `json:"description" form:"description"`
 	PricePerNight int    `json:"price_per_night" form:"price_per_night"`
-	UserId        uint   `json:"user_id" form:"user_id"`
+	UserID        uint   `json:"user_id" form:"user_id"`
 }
 
 func requestToCore(homestayInput HomestayRequest) homestay.HomestayCore {
@@ -22,7 +22,7 @@ func requestToCore(homestayInput HomestayRequest) homestay.HomestayCore {
 		Image3:        homestayInput.Image3,
 		Description:   homestayInput.Description,
 		PricePerNight: homestayInput.PricePerNight,
-		UserId:        homestayInput.UserId,
+		UserID:        homestayInput.UserID,
 	}
 	return homestayCoreData
 }

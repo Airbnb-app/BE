@@ -18,7 +18,7 @@ type Homestay struct {
 	PricePerNight int
 	BookedStart   time.Time
 	BookedEnd     time.Time
-	UserId        uint
+	UserID        uint
 	User          User
 	Feedback      []Feedback
 }
@@ -34,7 +34,7 @@ type Feedback struct {
 	Rating     string
 	Feedback   string
 	UserName   string
-	HomestayId uint
+	HomestayID uint
 }
 
 func fromCore(dataCore homestay.HomestayCore) Homestay {
@@ -46,7 +46,7 @@ func fromCore(dataCore homestay.HomestayCore) Homestay {
 		Image3:        dataCore.Image3,
 		Description:   dataCore.Description,
 		PricePerNight: dataCore.PricePerNight,
-		UserId:        dataCore.UserId,
+		UserID:        dataCore.UserID,
 	}
 	return userGorm
 }
