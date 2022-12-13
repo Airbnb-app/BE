@@ -31,10 +31,10 @@ func (repo *userRepository) Create(input user.Core) error {
 }
 
 // GetById implements user.RepositoryInterface
-func (repo *userRepository) GetById(id int) (data user.Core, err error) {
+func (repo *userRepository) Get() (data user.Core, err error) {
 	var user User
 
-	tx := repo.db.First(&user, id)
+	tx := repo.db.Preload("Homestay").First(&user)
 
 	if tx.Error != nil {
 		return data, tx.Error
@@ -49,10 +49,10 @@ func (repo *userRepository) GetById(id int) (data user.Core, err error) {
 }
 
 // Update implements user.Repository
-func (repo *userRepository) Update(input user.Core, id int) error {
+func (repo *userRepository) Update(input user.Core) error {
 	userGorm := fromCore(input)
 	var user User
-	tx := repo.db.Model(&user).Where("ID = ?", id).Updates(&userGorm) // proses update
+	tx := repo.db.Model(&user).Updates(&userGorm) // proses update
 	if tx.Error != nil {
 		return tx.Error
 	}
@@ -62,10 +62,14 @@ func (repo *userRepository) Update(input user.Core, id int) error {
 	return nil
 }
 
+// func (repo *userRepository) Upgrade(input user.Core, id int) error {
+
+// }
+
 // Delete implements user.Repository
-func (repo *userRepository) Delete(id int) error {
+func (repo *userRepository) Delete() error {
 	var user User
-	tx := repo.db.Delete(&user, id) // proses delete
+	tx := repo.db.Unscoped().Delete(&user) // proses delete
 	if tx.Error != nil {
 		return tx.Error
 	}

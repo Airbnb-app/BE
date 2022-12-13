@@ -22,6 +22,15 @@ type Homestay struct {
 	User          User
 }
 
+type HomestayForUser struct {
+	ID            uint
+	Name          string
+	Address       string
+	Image1        string
+	Description   string
+	PricePerNight int
+}
+
 type User struct {
 	gorm.Model
 	Name     string
@@ -52,7 +61,10 @@ func (dataModel *Homestay) toCore() homestay.HomestayCore {
 		Image3:        dataModel.Image3,
 		Description:   dataModel.Description,
 		PricePerNight: dataModel.PricePerNight,
-		User:          homestay.User{dataModel.User.ID, dataModel.User.Name},
+		User: homestay.User{
+			ID:   dataModel.User.ID,
+			Name: dataModel.User.Name,
+		},
 	}
 }
 
