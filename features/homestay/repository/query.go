@@ -34,7 +34,7 @@ func (r *homestayRepository) InsertHomestay(data homestay.HomestayCore) (row int
 func (r *homestayRepository) GetHomestayById(id uint) (data homestay.HomestayCore, err error) {
 	var homestay Homestay
 
-	tx := r.db.Preload("Feedback").First(&homestay, id)
+	tx := r.db.Preload("Feedback").Preload("User").First(&homestay, id)
 	if tx.Error != nil {
 		return data, tx.Error
 	}
@@ -46,7 +46,7 @@ func (r *homestayRepository) GetHomestayById(id uint) (data homestay.HomestayCor
 func (r *homestayRepository) GetAllHomestays(keyword string) (data []homestay.HomestayCore, err error) {
 	var homestays []Homestay
 	if keyword == "" {
-		tx := r.db.Find(&homestays)
+		tx := r.db.Preload("User").Find(&homestays)
 		if tx.Error != nil {
 			return nil, tx.Error
 		}
