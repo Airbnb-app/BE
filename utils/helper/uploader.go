@@ -37,9 +37,9 @@ func fileName(length int) string {
 
 //uploader
 
-func UploadImage(c echo.Context) (string, error) {
+func UploadImage(c echo.Context, r string) (string, error) {
 
-	file, fileheader, err := c.Request().FormFile("file")
+	file, fileheader, err := c.Request().FormFile(r)
 	if err != nil {
 		log.Print(err)
 		return "", err
