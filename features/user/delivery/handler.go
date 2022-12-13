@@ -42,6 +42,7 @@ func (delivery *UserDelivery) Create(c echo.Context) error {
 }
 
 func (delivery *UserDelivery) Get(c echo.Context) error {
+
 	results, err := delivery.userService.Get()
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse(err.Error()))
