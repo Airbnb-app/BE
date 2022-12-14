@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"net/http"
+	// "net/http"
 
 	"github.com/GP-3-Kelompok-2/airbnb-app-project/config"
 	"github.com/GP-3-Kelompok-2/airbnb-app-project/factory"
@@ -24,8 +24,6 @@ func main() {
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.CORS())
 	e.Use(middleware.Logger())
-	e.GET("/hello", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, "hello world")
-	})
+
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", cfg.SERVER_PORT)))
 }
