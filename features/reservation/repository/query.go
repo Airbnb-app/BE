@@ -37,6 +37,7 @@ func (r *reservationRepository) CreatePayment(input reservation.ReservationCore)
 		Duration:   inputGorm.Duration,
 		UserID:     inputGorm.UserID,
 		HomestayID: inputGorm.HomestayID,
+		TotalPrice: inputGorm.TotalPrice,
 		Payment: Payment{CreditCard: inputGorm.Payment.CreditCard,
 			Name:       inputGorm.Payment.Name,
 			CardNumber: inputGorm.Payment.CardNumber,
