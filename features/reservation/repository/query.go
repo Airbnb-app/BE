@@ -49,7 +49,7 @@ func (r *reservationRepository) CreatePayment(input reservation.ReservationCore)
 		return errors.New("insert failed")
 	}
 
-	tx2 := r.db.Model(&homestay).Where("id = ?", input.HomestayID).Updates(Homestay{BookedStart: input.StartDate, BookedEnd: input.EndDate})
+	tx2 := r.db.Model(&homestay).Where("id = ?", input.HomestayID).Updates(&Homestay{BookedStart: input.StartDate, BookedEnd: input.EndDate})
 	if tx2.Error != nil {
 		return tx2.Error
 	}
