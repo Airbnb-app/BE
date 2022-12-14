@@ -7,6 +7,7 @@ import (
 	"github.com/GP-3-Kelompok-2/airbnb-app-project/config"
 	feedback "github.com/GP-3-Kelompok-2/airbnb-app-project/features/feedback/repository"
 	homestay "github.com/GP-3-Kelompok-2/airbnb-app-project/features/homestay/repository"
+	payment "github.com/GP-3-Kelompok-2/airbnb-app-project/features/payment/repository"
 	reservation "github.com/GP-3-Kelompok-2/airbnb-app-project/features/reservation/repository"
 	user "github.com/GP-3-Kelompok-2/airbnb-app-project/features/user/repository"
 	"gorm.io/driver/mysql"
@@ -30,6 +31,6 @@ func MigrateDB(db *gorm.DB) {
 	db.AutoMigrate(&homestay.Homestay{})
 	db.AutoMigrate(&feedback.Feedback{})
 	db.AutoMigrate(&reservation.Reservation{})
-	db.AutoMigrate(&reservation.Payment{})
+	db.AutoMigrate(&payment.Payment{})
 
 }
