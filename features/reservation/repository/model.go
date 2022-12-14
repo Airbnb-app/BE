@@ -16,6 +16,7 @@ type Reservation struct {
 	Homestay   Homestay
 	UserID     uint
 	HomestayID uint
+	Payment    Payment
 }
 
 type User struct {
@@ -31,6 +32,17 @@ type Homestay struct {
 	BookedStart   time.Time
 	BookedEnd     time.Time
 	Reservation   []Reservation
+}
+
+type Payment struct {
+	gorm.Model
+	CreditCard    string
+	Name          string
+	CardNumber    string
+	Cvv           string
+	Month         string
+	Year          string
+	ReservationID uint
 }
 
 func fromCore(dataCore reservation.ReservationCore) Reservation {
@@ -60,6 +72,16 @@ func (dataModel *Reservation) toCore() reservation.ReservationCore {
 			PricePerNight: dataModel.Homestay.PricePerNight,
 			BookedStart:   dataModel.Homestay.BookedStart,
 			BookedEnd:     dataModel.Homestay.BookedEnd,
+		},
+		Payment: reservation.Payment{
+			ID:            dataModel.Payment.ID,
+			CreditCard:    dataModel.Payment.CreditCard,
+			Name:          dataModel.Payment.Name,
+			CardNumber:    dataModel.Payment.CardNumber,
+			Cvv:           dataModel.Payment.Cvv,
+			Month:         dataModel.Payment.Month,
+			Year:          dataModel.Payment.Year,
+			ReservationID: dataModel.Payment.ReservationID,
 		},
 	}
 }

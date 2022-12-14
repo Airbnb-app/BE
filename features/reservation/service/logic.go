@@ -27,3 +27,13 @@ func (s *reservationService) CheckAvailability(input reservation.ReservationCore
 	}
 	return data, nil
 }
+
+// CreatePayment implements reservation.ServiceInterface
+func (s *reservationService) CreatePayment(input reservation.ReservationCore) (err error) {
+	err = s.reservationRepo.CreatePayment(input)
+	if err != nil {
+		return errors.New("failed create payment, error query")
+	}
+
+	return nil
+}
