@@ -19,11 +19,11 @@ func New(data reservation.RepositoryInterface) reservation.ServiceInterface {
 }
 
 // CheckAvailability implements reservation.ServiceInterface
-func (s *reservationService) CheckAvailability(input reservation.ReservationCore) (data reservation.ReservationCore, err error) {
+func (s *reservationService) CheckAvailability(input reservation.ReservationCore) (data reservation.Homestay, err error) {
 	data, err = s.reservationRepo.CheckAvailability(input)
 	if err != nil {
 		return data, errors.New("failed get data, error query")
 
 	}
-	return
+	return data, nil
 }

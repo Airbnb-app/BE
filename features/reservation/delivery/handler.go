@@ -38,7 +38,7 @@ func (d *ReservationDelivery) CheckAvailability(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
 	}
 
-	dataResponse := fromCore(res)
+	dataResponse := fromCoreAvail(res)
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("available reservation", dataResponse))
 }
