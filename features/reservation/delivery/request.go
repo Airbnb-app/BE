@@ -20,6 +20,13 @@ type ReservationRequest struct {
 	StartDate  string `json:"start_date" form:"start_date"`
 	EndDate    string `json:"end_date" form:"end_date"`
 	HomestayID int    `json:"homestay_id" form:"homestay_id"`
+	Homestay   Homestay
+}
+
+type Homestay struct {
+	ID          uint
+	BookedStart time.Time
+	BookedEnd   time.Time
 }
 
 var dateLayout = "2006-01-02"
@@ -33,5 +40,10 @@ func ToCore(reservationInput ReservationRequest) reservation.ReservationCore {
 		EndDate:    end,
 		Duration:   period,
 		HomestayID: uint(reservationInput.HomestayID),
+		Homestay: reservation.Homestay{
+			ID:          reservationInput.Homestay.ID,
+			BookedStart: reservationInput.Homestay.BookedStart,
+			BookedEnd:   reservationInput.Homestay.BookedEnd,
+		},
 	}
 }
