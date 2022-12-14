@@ -11,10 +11,10 @@ type ReservationResponse struct {
 }
 
 type HomestayResponse struct {
-	HomestayID    uint `json:"id"`
+	HomestayID    uint `json:"homestay_id"`
 	PricePerNight int  `json:"price_per_night"`
 	Duration      int  `json:"duration"`
-	TotalPrice    int  `json:"total_night"`
+	TotalPrice    int  `json:"total_price"`
 }
 
 func fromCore(dataCore reservation.ReservationCore) ReservationResponse {
