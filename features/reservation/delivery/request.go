@@ -19,6 +19,7 @@ type PaymentRequest struct {
 	EndDate    string `json:"end_date" form:"end_date"`
 	HomestayID int    `json:"homestay_id" form:"homestay_id"`
 	Duration   int    `json:"duration" form:"duration"`
+	TotalPrice int    `json:"total_price" form:"total_price"`
 	UserID     uint   `json:"user_id" form:"user_id"`
 	Payment    Payment
 }
@@ -65,6 +66,7 @@ func ToCorePayment(reservationInput PaymentRequest) reservation.ReservationCore 
 		StartDate:  start,
 		EndDate:    end,
 		Duration:   period,
+		TotalPrice: reservationInput.TotalPrice,
 		UserID:     reservationInput.UserID,
 		HomestayID: uint(reservationInput.HomestayID),
 		Payment: reservation.Payment{
