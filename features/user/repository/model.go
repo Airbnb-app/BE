@@ -1,9 +1,7 @@
 package repository
 
 import (
-	_homestay "github.com/GP-3-Kelompok-2/airbnb-app-project/features/homestay"
-	homestay "github.com/GP-3-Kelompok-2/airbnb-app-project/features/homestay/repository"
-	_user "github.com/GP-3-Kelompok-2/airbnb-app-project/features/user"
+	"github.com/GP-3-Kelompok-2/airbnb-app-project/features/user"
 	"gorm.io/gorm"
 )
 
@@ -19,8 +17,18 @@ type User struct {
 		Image2 string
 		Image3 string
 	}
-	Homestay []homestay.Homestay
 	Feedback []Feedback
+	Homestay []Homestay
+}
+
+type Homestay struct {
+	gorm.Model
+	Name          string
+	Address       string
+	Image1        string
+	Description   string
+	PricePerNight int
+	UserID        uint
 }
 
 type Feedback struct {
@@ -33,7 +41,7 @@ type Feedback struct {
 // mapping
 
 // mengubah struct core ke struct model gorm
-func fromCore(dataCore _user.Core) User {
+func fromCore(dataCore user.Core) User {
 	userGorm := User{
 		Name:     dataCore.Name,
 		Email:    dataCore.Email,
@@ -44,10 +52,10 @@ func fromCore(dataCore _user.Core) User {
 }
 
 // mengubah struct model gorm ke struct core
-func (dataModel *User) toCore() _user.Core {
-	var arrHomestay []_homestay.HomestayCore
+func (dataModel *User) toCore() user.Core {
+	var arrHomestay []user.Homestay
 	for _, val := range dataModel.Homestay {
-		arrHomestay = append(arrHomestay, _homestay.HomestayCore{
+		arrHomestay = append(arrHomestay, user.Homestay{
 			ID:            val.ID,
 			Name:          val.Name,
 			Address:       val.Address,
@@ -56,7 +64,7 @@ func (dataModel *User) toCore() _user.Core {
 			PricePerNight: val.PricePerNight,
 		})
 	}
-	return _user.Core{
+	return user.Core{
 		ID:        dataModel.ID,
 		Name:      dataModel.Name,
 		Email:     dataModel.Email,
