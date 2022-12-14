@@ -16,17 +16,11 @@ type Feedback struct {
 }
 
 // doesn't need
-// type Homestay struct {
-// 	ID       uint
-// 	Name     string
-// 	Feedback []Feedback
-// }
-
-// type User struct {
-// 	ID       uint
-// 	Name     string
-// 	Feedback []Feedback
-// }
+type Homestay struct {
+	gorm.Model
+	Name     string
+	Feedback []Feedback
+}
 
 func fromCore(dataCore feedback.FeedbackCore) Feedback {
 	feedbackGorm := Feedback{
