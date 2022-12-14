@@ -9,6 +9,12 @@ type FeedbackCore struct {
 	HomestayID uint
 }
 
+type Homestay struct {
+	ID       uint
+	Name     string
+	Feedback []FeedbackCore
+}
+
 type ServiceInterface interface {
 	CreateFeedback(input FeedbackCore) (err error)
 }
