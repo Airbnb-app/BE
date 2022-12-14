@@ -88,9 +88,9 @@ func (delivery *UserDelivery) Delete(c echo.Context) error {
 func (delivery *UserDelivery) Upgrade(c echo.Context) error {
 	//upgrade cukup input request body image1
 	userId := middlewares.ExtractTokenUserId(c)
-	x := uint(userId)
-	userInput := InsertRequest{}
-	errBind := c.Bind(&userInput.Image) // menangkap data yg dikirim dari req body dan disimpan ke variabel
+	idParam := uint(userId)
+	userInput := UpgradeRequest{}
+	errBind := c.Bind(&userInput) // menangkap data yg dikirim dari req body dan disimpan ke variabel
 	if errBind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data. "+errBind.Error()))
 	}
@@ -102,9 +102,9 @@ func (delivery *UserDelivery) Upgrade(c echo.Context) error {
 			return errors.New("registration failed. cannot upload data")
 		}
 		log.Print(urlImage1)
-		userInput.Image.Image1 = urlImage1
+		userInput.Image1 = urlImage1
 	} else {
-		userInput.Image.Image1 = "https://img1.wikia.nocookie.net/__cb20130610133347/onepiece/it/images/3/3d/Noland_bugiardo_2.png"
+		userInput.Image1 = ""
 	}
 	image2, _ := c.FormFile("image2")
 	if image2 != nil {
@@ -113,9 +113,9 @@ func (delivery *UserDelivery) Upgrade(c echo.Context) error {
 			return errors.New("registration failed. cannot upload data")
 		}
 		log.Print(urlImage2)
-		userInput.Image.Image2 = urlImage2
+		userInput.Image2 = urlImage2
 	} else {
-		userInput.Image.Image2 = "https://img1.wikia.nocookie.net/__cb20130610133347/onepiece/it/images/3/3d/Noland_bugiardo_2.png"
+		userInput.Image2 = ""
 	}
 
 	image3, _ := c.FormFile("image3")
@@ -125,13 +125,19 @@ func (delivery *UserDelivery) Upgrade(c echo.Context) error {
 			return errors.New("registration failed. cannot upload data")
 		}
 		log.Print(urlImage3)
-		userInput.Image.Image3 = urlImage3
+		userInput.Image3 = urlImage3
 	} else {
-		userInput.Image.Image3 = "https://img1.wikia.nocookie.net/__cb20130610133347/onepiece/it/images/3/3d/Noland_bugiardo_2.png"
+		userInput.Image3 = ""
 	}
 
-	dataCore := toCore(userInput.Image)
-	err := delivery.userService.Upgrade(dataCore, x)
+	if userInput.Image1 == "" && userInput.Image2 == "" && userInput.Image3 == "" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("must upload atleast 3 images"))
+	}
+
+	userInput.Role = "Hoster"
+
+	dataCore := toCore(userInput)
+	err := delivery.userService.Upgrade(dataCore, idParam)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("Failed insert data. "+err.Error()))
 	}

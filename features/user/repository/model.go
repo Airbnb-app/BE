@@ -12,12 +12,9 @@ type User struct {
 	Email    string `validate:"required,email"`
 	Password string `valudate:"required"`
 	Role     string `valudate:"required"`
-	Image    struct {
-		Image1 string
-		Image2 string
-		Image3 string
-	}
-	Feedback []Feedback
+	Image1   string
+	Image2   string
+	Image3   string
 	Homestay []Homestay
 }
 
@@ -31,12 +28,6 @@ type Homestay struct {
 	UserID        uint
 }
 
-type Feedback struct {
-	gorm.Model
-	Feedback string
-	UserID   uint
-}
-
 // DTO
 // mapping
 
@@ -47,6 +38,9 @@ func fromCore(dataCore user.Core) User {
 		Email:    dataCore.Email,
 		Password: dataCore.Password,
 		Role:     dataCore.Role,
+		Image1:   dataCore.Image1,
+		Image2:   dataCore.Image2,
+		Image3:   dataCore.Image3,
 	}
 	return userGorm
 }
@@ -65,14 +59,15 @@ func (dataModel *User) toCore() user.Core {
 		})
 	}
 	return user.Core{
-		ID:        dataModel.ID,
-		Name:      dataModel.Name,
-		Email:     dataModel.Email,
-		Password:  dataModel.Password,
-		Role:      dataModel.Role,
-		CreatedAt: dataModel.CreatedAt,
-		UpdatedAt: dataModel.UpdatedAt,
-		Homestay:  arrHomestay,
+		ID:       dataModel.ID,
+		Name:     dataModel.Name,
+		Email:    dataModel.Email,
+		Password: dataModel.Password,
+		Role:     dataModel.Role,
+		Image1:   dataModel.Image1,
+		Image2:   dataModel.Image2,
+		Image3:   dataModel.Image3,
+		Homestay: arrHomestay,
 	}
 }
 
