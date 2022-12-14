@@ -2,8 +2,7 @@ package user
 
 import (
 	"time"
-
-	homestay "github.com/GP-3-Kelompok-2/airbnb-app-project/features/homestay"
+	// homestay "github.com/GP-3-Kelompok-2/airbnb-app-project/features/homestay"
 )
 
 type Core struct {
@@ -19,7 +18,16 @@ type Core struct {
 	}
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	Homestay  []homestay.HomestayCore
+	Homestay  []Homestay
+}
+
+type Homestay struct {
+	ID            uint
+	Name          string
+	Address       string
+	Image1        string
+	Description   string
+	PricePerNight int
 }
 
 type ServiceInterface interface {
