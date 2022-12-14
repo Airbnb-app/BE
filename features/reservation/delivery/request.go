@@ -7,15 +7,6 @@ import (
 	"github.com/GP-3-Kelompok-2/airbnb-app-project/features/reservation"
 )
 
-// ID         uint
-// 	StartDate  time.Time
-// 	EndDate    time.Time
-// 	Duration   int
-// 	TotalPrice int
-// 	Homestay   Homestay
-// 	UserID     uint
-// 	HomestayID uint
-
 type ReservationRequest struct {
 	StartDate  string `json:"start_date" form:"start_date"`
 	EndDate    string `json:"end_date" form:"end_date"`
