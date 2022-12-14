@@ -36,7 +36,7 @@ func (handler *AuthHandler) Login(c echo.Context) error {
 		// return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 		// 	"message": "failed to get token data" + err.Error(),
 		// })
-		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("Failed to Login. "+err.Error()))
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Failed to Login. "+err.Error()))
 	}
 	// return c.JSON(http.StatusOK, map[string]interface{}{
 	// 	"message": "success",
