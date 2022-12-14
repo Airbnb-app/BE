@@ -3,6 +3,7 @@ package delivery
 import (
 	// "errors"
 	// "log"
+	"math"
 	"net/http"
 
 	// "strconv"
@@ -38,7 +39,13 @@ func (d *ReservationDelivery) CheckAvailability(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
 	}
 
+	start := dataInput.StartDate
+	end := dataInput.EndDate
+	period := int(math.Ceil(end.Sub(start).Hours() / 24))
+
 	dataResponse := fromCoreAvail(res)
+	dataResponse.Duration = period
+	dataResponse.TotalPrice = dataInput.Duration * dataResponse.PricePerNight
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("available reservation", dataResponse))
 }
