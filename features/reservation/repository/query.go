@@ -33,9 +33,10 @@ func (r *reservationRepository) CreatePayment(input reservation.ReservationCore)
 	var homestay Homestay
 	inputGorm := fromCore(input)
 	tx := r.db.Create(&Reservation{StartDate: inputGorm.StartDate,
-		EndDate:  inputGorm.EndDate,
-		Duration: inputGorm.Duration,
-		UserID:   inputGorm.UserID,
+		EndDate:    inputGorm.EndDate,
+		Duration:   inputGorm.Duration,
+		UserID:     inputGorm.UserID,
+		HomestayID: inputGorm.HomestayID,
 		Payment: Payment{CreditCard: inputGorm.Payment.CreditCard,
 			Name:       inputGorm.Payment.Name,
 			CardNumber: inputGorm.Payment.CardNumber,
