@@ -40,5 +40,5 @@ func (d *ReservationDelivery) CheckAvailability(c echo.Context) error {
 
 	dataResponse := fromCore(res)
 
-	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("Success get all homestays", dataResponse))
+	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("available reservation", dataResponse))
 }
