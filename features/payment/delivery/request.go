@@ -18,10 +18,6 @@ type PaymentRequest struct {
 	Year       string `json:"year" form:"year"`
 }
 
-// type PaymentRequestOther struct{
-
-// }
-
 func requestToCore(PaymentInput PaymentRequest) payment.FirstCore {
 
 	return payment.FirstCore{
