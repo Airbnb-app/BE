@@ -17,6 +17,10 @@ import (
 	feedbackRepo "github.com/GP-3-Kelompok-2/airbnb-app-project/features/feedback/repository"
 	feedbackService "github.com/GP-3-Kelompok-2/airbnb-app-project/features/feedback/service"
 
+	reservationDelivery "github.com/GP-3-Kelompok-2/airbnb-app-project/features/reservation/delivery"
+	reservationRepo "github.com/GP-3-Kelompok-2/airbnb-app-project/features/reservation/repository"
+	reservationService "github.com/GP-3-Kelompok-2/airbnb-app-project/features/reservation/service"
+
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )
@@ -37,4 +41,8 @@ func InitFactory(e *echo.Echo, db *gorm.DB) {
 	feedbackRepoFactory := feedbackRepo.New(db)
 	feedbackServiceFactory := feedbackService.New(feedbackRepoFactory)
 	feedbackDelivery.New(feedbackServiceFactory, e)
+
+	reservationRepoFactory := reservationRepo.New(db)
+	reservationServiceFactory := reservationService.New(reservationRepoFactory)
+	reservationDelivery.New(reservationServiceFactory, e)
 }
