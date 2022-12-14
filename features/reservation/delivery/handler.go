@@ -25,6 +25,7 @@ func New(service reservation.ServiceInterface, e *echo.Echo) {
 	}
 
 	e.POST("/reservations/check", handler.CheckAvailability, middlewares.JWTMiddleware())
+	e.POST("/reservations", handler.Payment, middlewares.JWTMiddleware())
 }
 
 func (d *ReservationDelivery) CheckAvailability(c echo.Context) error {
@@ -48,4 +49,18 @@ func (d *ReservationDelivery) CheckAvailability(c echo.Context) error {
 	dataResponse.TotalPrice = dataInput.Duration * dataResponse.PricePerNight
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("available reservation", dataResponse))
+}
+
+func (d *ReservationDelivery) Payment(c echo.Context) error {
+	input := PaymentRequest{}
+	errBind := c.Bind(&input)
+	if errBind != nil {
+		return c.JSON(http.StatusNotFound, helper.FailedResponse("requested resource was not found"+errBind.Error()))
+	}
+	dataInput := ToCorePayment(input)
+	err := d.reservationService.CreatePayment(dataInput)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
+	}
+	return c.JSON(http.StatusOK, helper.SuccessResponse("Success reservation, see you later"))
 }

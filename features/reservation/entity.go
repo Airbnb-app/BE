@@ -11,6 +11,7 @@ type ReservationCore struct {
 	Homestay   Homestay
 	UserID     uint
 	HomestayID uint
+	Payment    Payment
 }
 
 type User struct {
@@ -28,9 +29,22 @@ type Homestay struct {
 	Reservation   []ReservationCore
 }
 
+type Payment struct {
+	ID            uint
+	CreditCard    string
+	Name          string
+	CardNumber    string
+	Cvv           string
+	Month         string
+	Year          string
+	ReservationID uint
+}
+
 type ServiceInterface interface {
 	CheckAvailability(input ReservationCore) (data Homestay, err error)
+	CreatePayment(input ReservationCore) (err error)
 }
 type RepositoryInterface interface {
 	CheckAvailability(input ReservationCore) (data Homestay, err error)
+	CreatePayment(input ReservationCore) (err error)
 }
