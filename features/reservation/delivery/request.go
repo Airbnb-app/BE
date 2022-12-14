@@ -29,8 +29,9 @@ func ToCore(reservationInput ReservationRequest) reservation.ReservationCore {
 	end, _ := time.Parse(dateLayout, reservationInput.EndDate)
 	period := int(math.Ceil(end.Sub(start).Hours() / 24))
 	return reservation.ReservationCore{
-		StartDate: start,
-		EndDate:   end,
-		Duration:  period,
+		StartDate:  start,
+		EndDate:    end,
+		Duration:   period,
+		HomestayID: uint(reservationInput.HomestayID),
 	}
 }
