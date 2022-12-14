@@ -29,7 +29,7 @@ type Homestay struct {
 }
 
 type ServiceInterface interface {
-	CheckAvailability(input ReservationCore) (data ReservationCore, err error)
+	CheckAvailability(input ReservationCore) (data Homestay, err error)
 	// CreateHomestay(data HomestayCore) (err error)
 	// GetAllHomestays(keyword string) (data []HomestayCore, err error)
 	// GetHomestayById(id uint) (data HomestayCore, err error)
@@ -37,7 +37,7 @@ type ServiceInterface interface {
 	// DeleteHomestay(id uint) (err error)
 }
 type RepositoryInterface interface {
-	CheckAvailability(input ReservationCore) (data ReservationCore, err error)
+	CheckAvailability(input ReservationCore) (data Homestay, err error)
 	// InsertHomestay(data HomestayCore) (row int, err error)
 	// GetAllHomestays(keyword string) (data []HomestayCore, err error)
 	// GetHomestayById(id uint) (data HomestayCore, err error)

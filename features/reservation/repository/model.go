@@ -64,6 +64,15 @@ func (dataModel *Reservation) toCore() reservation.ReservationCore {
 	}
 }
 
+func (dataModel *Homestay) toCore() reservation.Homestay {
+	return reservation.Homestay{
+		ID:            dataModel.ID,
+		PricePerNight: dataModel.PricePerNight,
+		BookedStart:   dataModel.BookedStart,
+		BookedEnd:     dataModel.BookedEnd,
+	}
+}
+
 func toCoreList(dataModel []Reservation) []reservation.ReservationCore {
 	var dataCore []reservation.ReservationCore
 	for _, v := range dataModel {
