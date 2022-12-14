@@ -32,5 +32,5 @@ func MigrateDB(db *gorm.DB) {
 	db.AutoMigrate(&feedback.Feedback{})
 	db.AutoMigrate(&reservation.Reservation{})
 	db.AutoMigrate(&payment.Payment{})
-
+	db.AutoMigrate(&reservation.Payment{})
 }
