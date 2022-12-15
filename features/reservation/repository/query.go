@@ -57,3 +57,13 @@ func (r *reservationRepository) CreatePayment(input reservation.ReservationCore)
 	}
 	return nil
 }
+
+func (r *reservationRepository) GetHistory(id uint) (data []reservation.History, err error) {
+	var history []History
+	tx := r.db.Preload("Reservation").Preload("Homestay").Find(&history, id)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+	dataCore := toCoreListHistory(history)
+	return dataCore, nil
+}

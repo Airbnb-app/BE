@@ -37,3 +37,12 @@ func (s *reservationService) CreatePayment(input reservation.ReservationCore) (e
 
 	return nil
 }
+
+// GetHistory implements reservation.ServiceInterface
+func (s *reservationService) GetHistory(id uint) (data []reservation.History, err error) {
+	data, err = s.reservationRepo.GetHistory(id)
+	if err != nil {
+		return data, errors.New("failed get data, error query")
+	}
+	return data, nil
+}
