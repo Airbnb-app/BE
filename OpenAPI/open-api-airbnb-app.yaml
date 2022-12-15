@@ -122,19 +122,10 @@ paths:
     get:
       tags:
         - Users
-      summary: "Get User by Id"
+      summary: "Get User Profile"
       description: "Get data user using id user at path parameter. Only return 1 data."
       security:
         - JWTAuth: []
-      parameters:
-        - name: id
-          description: "Id user to get data"
-          required: true
-          in: path
-          schema:
-            description: "Id user 1"
-            type: integer
-            example: 1
       responses:
         '200':
           description: "Success Get User by Id"
@@ -150,6 +141,19 @@ paths:
                     name: "Budiman"
                     role: "User"
                     email: "budi123@gmail.com"
+                    homestay: 
+                      - id: 1
+                        name: "villa del paris"
+                        address: "paris"
+                        image1: "https://gambardariserver.com"
+                        description: "mid"
+                        price_per_night: 5000
+                      - id: 2
+                        name: "villa del paris"
+                        address: "paris"
+                        image1: "https://gambardariserver.com"
+                        description: "mid"
+                        price_per_night: 5000
         "400" :
           $ref : "#/components/responses/400"  
         "401" :
@@ -165,15 +169,6 @@ paths:
       description: "Update User using request body and using id for reference at path parameter."
       security:
         - JWTAuth: []
-      parameters:
-        - name: id
-          description: "Id user to update data"
-          required: true
-          in: path
-          schema:
-            description: "Id user 1"
-            type: integer
-            example: 1
       requestBody:
         required: true
         content:
@@ -211,15 +206,6 @@ paths:
       description: "Delete User using id at path parameter as reference."
       security:
         - JWTAuth: []
-      parameters:
-        - name: id
-          description: "Id user to delete data."
-          required: true
-          in: path
-          schema:
-            description: "Id user 1"
-            type: integer
-            example: 1
       responses:
         '200':
           description: "Success Delete User."
@@ -251,9 +237,9 @@ paths:
             schema:
               $ref: "#/components/schemas/UpgradeUserObject"
             example:
-              file_1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
-              file_2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
-              file_3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
       responses:
         '201':
           description: "Success Upgrade User"
@@ -404,6 +390,15 @@ paths:
                     price_per_night: 2000000
                     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
                     owner: "someone"
+                    feedback:
+                      - id: 1
+                        rating: "tiga"
+                        feedback: "mid"
+                        poster: "jo haseul"
+                      - id: 2
+                        rating: "tiga"
+                        feedback: "mid"
+                        poster: "kim lip"
         "400" :
           $ref : "#/components/responses/400"  
         "401" :
@@ -702,13 +697,13 @@ components:
     "UpgradeUserObject":
       type: object
       properties:
-        "file 1":
+        "image1":
           type: string
           format: binary
-        "file 2":
+        "image2":
           type: string
           format: binary
-        "file 3":
+        "image3":
           type: string
           format: binary
 ### Homestay Schemas
