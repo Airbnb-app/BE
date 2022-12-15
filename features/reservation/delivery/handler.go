@@ -77,7 +77,7 @@ func (d *ReservationDelivery) GetHistory(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse(err.Error()))
 	}
 
-	dataResponse := fromCoreList(results)
+	dataResponse := TripArr(results)
 
-	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("Success read user.", dataResponse))
+	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success get trip history.", dataResponse))
 }

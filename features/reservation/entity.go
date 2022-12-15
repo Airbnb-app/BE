@@ -40,12 +40,6 @@ type Payment struct {
 	ReservationID uint
 }
 
-type History struct {
-	ID          uint
-	Reservation ReservationData
-	Homestay    HomestayData
-}
-
 type ReservationData struct {
 	ID         uint
 	HomestayID uint
@@ -63,10 +57,10 @@ type HomestayData struct {
 type ServiceInterface interface {
 	CheckAvailability(input ReservationCore) (data Homestay, err error)
 	CreatePayment(input ReservationCore) (err error)
-	GetHistory(id uint) (data []History, err error)
+	GetHistory(UserId uint) (data []ReservationCore, err error)
 }
 type RepositoryInterface interface {
 	CheckAvailability(input ReservationCore) (data Homestay, err error)
 	CreatePayment(input ReservationCore) (err error)
-	GetHistory(id uint) (data []History, err error)
+	GetHistory(UserId uint) (data []ReservationCore, err error)
 }

@@ -58,12 +58,14 @@ func (r *reservationRepository) CreatePayment(input reservation.ReservationCore)
 	return nil
 }
 
-func (r *reservationRepository) GetHistory(id uint) (data []reservation.History, err error) {
-	var history []History
-	tx := r.db.Preload("Reservation").Preload("Homestay").Find(&history, id)
+// GetHistory implements reservation.RepositoryInterface
+func (r *reservationRepository) GetHistory(UserId uint) (data []reservation.ReservationCore, err error) {
+	var reservation []Reservation
+	tx := r.db.Preload("Homestay").Where("user_id = ?", UserId).Find(&reservation)
 	if tx.Error != nil {
 		return nil, tx.Error
 	}
-	dataCore := toCoreListHistory(history)
+	dataCore := toCoreList(reservation)
 	return dataCore, nil
+
 }

@@ -7,9 +7,9 @@ import (
 )
 
 type ReservationResponse struct {
-	ID         uint
-	Duration   int
-	TotalPrice int
+	ID         uint `json:"id"`
+	Duration   int  `json:"duration"`
+	TotalPrice int  `json:"total_price"`
 }
 
 type HomestayResponse struct {
@@ -19,13 +19,17 @@ type HomestayResponse struct {
 	TotalPrice    int  `json:"total_price"`
 }
 
+type HomestayTrip struct {
+	Name    string `json:"homestay_name"`
+	Address string `json:"address"`
+}
 type HistoryResponse struct {
-	HomestayID uint      `json:"homestay_id"`
-	Name       string    `json:"name"`
-	Address    string    `json:"address"`
 	StartDate  time.Time `json:"start_date"`
 	EndDate    time.Time `json:"end_date"`
+	Duration   int       `json:"duration"`
 	TotalPrice int       `json:"total_price"`
+	Homestay   HomestayTrip
+	HomestayID uint `json:"homestay_id"`
 }
 
 func fromCore(dataCore reservation.ReservationCore) ReservationResponse {
@@ -43,21 +47,24 @@ func fromCoreAvail(dataCore reservation.Homestay) HomestayResponse {
 	}
 }
 
-func fromCoreHistory(dataCore reservation.History) HistoryResponse {
+func fromCoreTrip(dataCore reservation.ReservationCore) HistoryResponse {
 	return HistoryResponse{
-		HomestayID: dataCore.Reservation.HomestayID,
-		Name:       dataCore.Homestay.Name,
-		Address:    dataCore.Homestay.Address,
-		StartDate:  dataCore.Reservation.StartDate,
-		EndDate:    dataCore.Reservation.EndDate,
-		TotalPrice: dataCore.Reservation.TotalPrice,
+		StartDate:  dataCore.StartDate,
+		EndDate:    dataCore.EndDate,
+		Duration:   dataCore.Duration,
+		TotalPrice: dataCore.TotalPrice,
+		HomestayID: dataCore.HomestayID,
+		Homestay: HomestayTrip{
+			Name:    dataCore.Homestay.Name,
+			Address: dataCore.Homestay.Address,
+		},
 	}
 }
 
-func fromCoreList(dataCore []reservation.History) []HistoryResponse {
+func TripArr(dataCore []reservation.ReservationCore) []HistoryResponse {
 	var dataResponse []HistoryResponse
 	for _, v := range dataCore {
-		dataResponse = append(dataResponse, fromCoreHistory(v))
+		dataResponse = append(dataResponse, fromCoreTrip(v))
 	}
 	return dataResponse
 }
