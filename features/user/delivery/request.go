@@ -20,7 +20,7 @@ type UpdateRequest struct {
 	Name     string `json:"name" form:"name"`
 	Email    string `json:"email" form:"email"`
 	Password string `json:"password" form:"password"`
-	Role     string `json:"role" form:"role"`
+	// Role     string `json:"role" form:"role"`
 }
 
 func toCore(i interface{}) user.Core {
@@ -49,7 +49,7 @@ func toCore(i interface{}) user.Core {
 			Name:     cnv.Name,
 			Email:    cnv.Email,
 			Password: cnv.Password,
-			Role:     cnv.Role,
+			// Role:     cnv.Role,
 		}
 	}
 
