@@ -34,7 +34,7 @@ type Payment struct {
 type User struct {
 	gorm.Model
 	Name        string
-	Reservation []Reservation
+	Reservation []Reservation `gorm:"constraint:OnDelete:CASCADE;"`
 }
 
 type Homestay struct {

@@ -15,7 +15,10 @@ type Feedback struct {
 	// User       User
 }
 
-// doesn't need
+type User struct {
+	gorm.Model
+	Feedback []Feedback `gorm:"constraint:OnDelete:CASCADE;"`
+}
 type Homestay struct {
 	gorm.Model
 	Name     string
