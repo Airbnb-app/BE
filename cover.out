@@ -1,4 +1,5 @@
 mode: set
+
 github.com/GP-3-Kelompok-2/airbnb-app-project/features/auth/service/logic.go:20.63,25.2 1 1
 github.com/GP-3-Kelompok-2/airbnb-app-project/features/auth/service/logic.go:27.82,29.74 1 1
 github.com/GP-3-Kelompok-2/airbnb-app-project/features/auth/service/logic.go:34.2,35.21 2 1
@@ -13,3 +14,9 @@ github.com/GP-3-Kelompok-2/airbnb-app-project/features/auth/service/logic.go:39.
 github.com/GP-3-Kelompok-2/airbnb-app-project/features/auth/service/logic.go:41.9,43.4 1 0
 github.com/GP-3-Kelompok-2/airbnb-app-project/features/auth/service/logic.go:49.25,52.3 2 1
 github.com/GP-3-Kelompok-2/airbnb-app-project/features/auth/service/logic.go:55.21,58.3 2 0
+
+github.com/GP-3-Kelompok-2/airbnb-app-project/features/feedback/service/logic.go:13.71,17.2 1 1
+github.com/GP-3-Kelompok-2/airbnb-app-project/features/feedback/service/logic.go:20.83,22.22 2 1
+github.com/GP-3-Kelompok-2/airbnb-app-project/features/feedback/service/logic.go:26.2,26.12 1 1
+github.com/GP-3-Kelompok-2/airbnb-app-project/features/feedback/service/logic.go:22.22,24.3 1 1
+
