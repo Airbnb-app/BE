@@ -16,7 +16,7 @@ type User struct {
 	Image2   string
 	Image3   string
 	Homestay []Homestay `gorm:"constraint:OnDelete:CASCADE;"`
-	Feedback []Feedback `gorm:"constraint:OnDelete:CASCADE;"`
+	Feedback []Feedback `gorm:"constraint:OnDelete:SET NULL;"`
 }
 
 type Homestay struct {
