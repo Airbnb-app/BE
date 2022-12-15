@@ -16,6 +16,7 @@ type User struct {
 	Image2   string
 	Image3   string
 	Homestay []Homestay `gorm:"constraint:OnDelete:CASCADE;"`
+	Feedback []Feedback `gorm:"constraint:OnDelete:CASCADE;"`
 }
 
 type Homestay struct {
@@ -26,6 +27,16 @@ type Homestay struct {
 	Description   string
 	PricePerNight int
 	UserID        uint
+}
+
+type Feedback struct {
+	gorm.Model
+	Rating     string
+	Feedback   string
+	UserId     uint
+	UserName   string
+	HomestayID uint
+	// User       User
 }
 
 // DTO
