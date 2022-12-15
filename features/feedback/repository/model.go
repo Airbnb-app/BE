@@ -19,7 +19,7 @@ type Feedback struct {
 type Homestay struct {
 	gorm.Model
 	Name     string
-	Feedback []Feedback
+	Feedback []Feedback `gorm:"foreignKey:HomestayID"`
 }
 
 func fromCore(dataCore feedback.FeedbackCore) Feedback {

@@ -16,7 +16,19 @@ type Reservation struct {
 	Homestay   Homestay
 	UserID     uint
 	HomestayID uint
-	Payment    Payment
+	Payment    Payment `gorm:"foreignKey:ReservationID"`
+}
+type Payment struct {
+	CreditCard    string
+	Name          string
+	CardNumber    string
+	Cvv           string
+	Month         string
+	Year          string
+	ReservationID uint `gorm:"primaryKey"`
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
+	DeletedAt     gorm.DeletedAt `gorm:"index"`
 }
 
 type User struct {
@@ -33,17 +45,6 @@ type Homestay struct {
 	BookedStart   time.Time
 	BookedEnd     time.Time
 	Reservation   []Reservation
-}
-
-type Payment struct {
-	gorm.Model
-	CreditCard    string
-	Name          string
-	CardNumber    string
-	Cvv           string
-	Month         string
-	Year          string
-	ReservationID uint
 }
 
 type History struct {
@@ -95,7 +96,6 @@ func (dataModel *Reservation) toCore() reservation.ReservationCore {
 			BookedEnd:     dataModel.Homestay.BookedEnd,
 		},
 		Payment: reservation.Payment{
-			ID:            dataModel.Payment.ID,
 			CreditCard:    dataModel.Payment.CreditCard,
 			Name:          dataModel.Payment.Name,
 			CardNumber:    dataModel.Payment.CardNumber,

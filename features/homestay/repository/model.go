@@ -20,7 +20,7 @@ type Homestay struct {
 	BookedEnd     time.Time
 	UserID        uint
 	User          User
-	Feedback      []Feedback
+	Feedback      []Feedback `gorm:"foreignKey:HomestayID"`
 }
 
 type User struct {

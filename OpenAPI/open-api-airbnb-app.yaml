@@ -13,11 +13,11 @@ info:
 servers:
   # Added by API Auto Mocking Plugin
   - description: Base URL Server AWS
-    url: http://18.143.102.15:8080
+    url: http://18.143.102.15:80
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/yusnarsetiyadi/OpenAPI-Airbnb-APP-Project/1.0.0
-  - description: BE servers
-    url: https://{environment}.api.alta.id
+  - description: Domain
+    url: https://numpangtidur.my.id
     variables:
       environment:
         default: dev
@@ -290,9 +290,9 @@ paths:
               $ref: "#/components/schemas/InsertHomestayObject"
             example:
               name: "Villa puncak"
-              image_1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
-              image_2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
-              image_3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
               address: "somewhere"
               price per night: 2000000
               description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
@@ -436,9 +436,9 @@ paths:
                 $ref: "#/components/schemas/EditHomestayObject"
             example:
               name: "Villa puncak"
-              image_1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
-              image_2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
-              image_3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image1: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image2: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
+              image3: AAkGBhQSERUUExQVFRUWGRwaGBgYGB0dGxkcHx
               address: "somewhere"
               price_per_night: 2000000
               description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
@@ -719,13 +719,13 @@ components:
           type: string
         "address":
           type: string
-        "image 1":
+        "image1":
           type: string
           format: binary
-        "image 2":
+        "image2":
           type: string
           format: binary
-        "image 3":
+        "image3":
           type: string
           format: binary
         "price per night":
@@ -739,13 +739,13 @@ components:
           type: string
         "address":
           type: string
-        "image 1":
+        "image1":
           type: string
           format: binary
-        "image 2":
+        "image2":
           type: string
           format: binary
-        "image 3":
+        "image3":
           type: string
           format: binary
         "price per night":
