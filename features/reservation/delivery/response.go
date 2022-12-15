@@ -60,7 +60,8 @@ func fromCoreTrip(dataCore reservation.ReservationCore) HistoryResponse {
 		// 	Name:    dataCore.Homestay.Name,
 		// 	Address: dataCore.Homestay.Address,
 		// },
-		HomestayName: dataCore.Homestay.Name,
+		HomestayName:    dataCore.Homestay.Name,
+		HomestayAddress: dataCore.Homestay.Address,
 	}
 }
 
