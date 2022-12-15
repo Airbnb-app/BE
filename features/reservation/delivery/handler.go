@@ -26,6 +26,7 @@ func New(service reservation.ServiceInterface, e *echo.Echo) {
 
 	e.POST("/reservations/check", handler.CheckAvailability, middlewares.JWTMiddleware())
 	e.POST("/reservations", handler.Payment, middlewares.JWTMiddleware())
+	e.GET("/reservations", handler.GetHistory, middlewares.JWTMiddleware())
 }
 
 func (d *ReservationDelivery) CheckAvailability(c echo.Context) error {
@@ -66,4 +67,17 @@ func (d *ReservationDelivery) Payment(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
 	}
 	return c.JSON(http.StatusOK, helper.SuccessResponse("Success reservation, see you later"))
+}
+
+func (d *ReservationDelivery) GetHistory(c echo.Context) error {
+	idUser := middlewares.ExtractTokenUserId(c)
+	userId := uint(idUser)
+	results, err := d.reservationService.GetHistory(userId)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse(err.Error()))
+	}
+
+	dataResponse := fromCoreList(results)
+
+	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("Success read user.", dataResponse))
 }

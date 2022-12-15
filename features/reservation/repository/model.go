@@ -40,10 +40,31 @@ type User struct {
 type Homestay struct {
 	gorm.Model
 	Name          string
+	Address       string
 	PricePerNight int
 	BookedStart   time.Time
 	BookedEnd     time.Time
 	Reservation   []Reservation
+}
+
+type History struct {
+	gorm.Model
+	Reservation ReservationData
+	Homestay    HomestayData
+}
+
+type ReservationData struct {
+	gorm.Model
+	HomestayID uint
+	StartDate  time.Time
+	EndDate    time.Time
+	TotalPrice int
+}
+
+type HomestayData struct {
+	gorm.Model
+	Name    string
+	Address string
 }
 
 func fromCore(dataCore reservation.ReservationCore) Reservation {
@@ -86,6 +107,22 @@ func (dataModel *Reservation) toCore() reservation.ReservationCore {
 	}
 }
 
+func (dataModel *History) HistoryToCore() reservation.History {
+	return reservation.History{
+		ID: dataModel.ID,
+		Reservation: reservation.ReservationData{
+			HomestayID: dataModel.Reservation.HomestayID,
+			StartDate:  dataModel.Reservation.StartDate,
+			EndDate:    dataModel.Reservation.EndDate,
+			TotalPrice: dataModel.Reservation.TotalPrice,
+		},
+		Homestay: reservation.HomestayData{
+			Name:    dataModel.Homestay.Name,
+			Address: dataModel.Homestay.Address,
+		},
+	}
+}
+
 func (dataModel *Homestay) toCore() reservation.Homestay {
 	return reservation.Homestay{
 		ID:            dataModel.ID,
@@ -99,6 +136,14 @@ func toCoreList(dataModel []Reservation) []reservation.ReservationCore {
 	var dataCore []reservation.ReservationCore
 	for _, v := range dataModel {
 		dataCore = append(dataCore, v.toCore())
+	}
+	return dataCore
+}
+
+func toCoreListHistory(dataModel []History) []reservation.History {
+	var dataCore []reservation.History
+	for _, v := range dataModel {
+		dataCore = append(dataCore, v.HistoryToCore())
 	}
 	return dataCore
 }
