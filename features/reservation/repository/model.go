@@ -91,6 +91,7 @@ func (dataModel *Reservation) toCore() reservation.ReservationCore {
 		Homestay: reservation.Homestay{
 			ID:            dataModel.Homestay.ID,
 			Name:          dataModel.Homestay.Name,
+			Address:       dataModel.Homestay.Address,
 			PricePerNight: dataModel.Homestay.PricePerNight,
 			BookedStart:   dataModel.Homestay.BookedStart,
 			BookedEnd:     dataModel.Homestay.BookedEnd,
@@ -103,22 +104,6 @@ func (dataModel *Reservation) toCore() reservation.ReservationCore {
 			Month:         dataModel.Payment.Month,
 			Year:          dataModel.Payment.Year,
 			ReservationID: dataModel.Payment.ReservationID,
-		},
-	}
-}
-
-func (dataModel *History) HistoryToCore() reservation.History {
-	return reservation.History{
-		ID: dataModel.ID,
-		Reservation: reservation.ReservationData{
-			HomestayID: dataModel.Reservation.HomestayID,
-			StartDate:  dataModel.Reservation.StartDate,
-			EndDate:    dataModel.Reservation.EndDate,
-			TotalPrice: dataModel.Reservation.TotalPrice,
-		},
-		Homestay: reservation.HomestayData{
-			Name:    dataModel.Homestay.Name,
-			Address: dataModel.Homestay.Address,
 		},
 	}
 }
@@ -136,14 +121,6 @@ func toCoreList(dataModel []Reservation) []reservation.ReservationCore {
 	var dataCore []reservation.ReservationCore
 	for _, v := range dataModel {
 		dataCore = append(dataCore, v.toCore())
-	}
-	return dataCore
-}
-
-func toCoreListHistory(dataModel []History) []reservation.History {
-	var dataCore []reservation.History
-	for _, v := range dataModel {
-		dataCore = append(dataCore, v.HistoryToCore())
 	}
 	return dataCore
 }
