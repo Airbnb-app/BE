@@ -13,7 +13,7 @@ info:
 servers:
   # Added by API Auto Mocking Plugin
   - description: Base URL Server AWS
-    url: http://18.143.102.15:8080
+    url: http://18.143.102.15:80
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/yusnarsetiyadi/OpenAPI-Airbnb-APP-Project/1.0.0
   - description: Domain
