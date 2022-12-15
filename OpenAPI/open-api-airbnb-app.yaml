@@ -177,7 +177,6 @@ paths:
                 $ref: "#/components/schemas/EditUserObject"
             example:
               name: "Budiman"
-              role: "User"
               email: "budi123@gmail.com"
               password: "123"
       responses:
@@ -687,8 +686,6 @@ components:
       type: object
       properties:
         "name":
-          type: string
-        "role":
           type: string
         "email":
           type: string
