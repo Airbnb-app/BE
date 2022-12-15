@@ -28,8 +28,10 @@ type HistoryResponse struct {
 	EndDate    time.Time `json:"end_date"`
 	Duration   int       `json:"duration"`
 	TotalPrice int       `json:"total_price"`
-	Homestay   HomestayTrip
-	HomestayID uint `json:"homestay_id"`
+	// Homestay   HomestayTrip
+	HomestayName    string `json:"homestay_name"`
+	HomestayAddress string `json:"homestay_address"`
+	HomestayID      uint   `json:"homestay_id"`
 }
 
 func fromCore(dataCore reservation.ReservationCore) ReservationResponse {
@@ -54,10 +56,12 @@ func fromCoreTrip(dataCore reservation.ReservationCore) HistoryResponse {
 		Duration:   dataCore.Duration,
 		TotalPrice: dataCore.TotalPrice,
 		HomestayID: dataCore.HomestayID,
-		Homestay: HomestayTrip{
-			Name:    dataCore.Homestay.Name,
-			Address: dataCore.Homestay.Address,
-		},
+		// Homestay: HomestayTrip{
+		// 	Name:    dataCore.Homestay.Name,
+		// 	Address: dataCore.Homestay.Address,
+		// },
+		HomestayName:    dataCore.Homestay.Name,
+		HomestayAddress: dataCore.Homestay.Address,
 	}
 }
 
