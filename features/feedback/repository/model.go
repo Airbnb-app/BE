@@ -17,7 +17,7 @@ type Feedback struct {
 
 type User struct {
 	gorm.Model
-	Feedback []Feedback `gorm:"constraint:OnDelete:CASCADE;"`
+	Feedback []Feedback `gorm:"constraint:OnDelete:SET NULL;"`
 }
 type Homestay struct {
 	gorm.Model
