@@ -27,6 +27,7 @@ type User struct {
 	gorm.Model
 	Name     string
 	Homestay []Homestay
+	Feedback Feedback `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
 
 type Feedback struct {
@@ -35,6 +36,7 @@ type Feedback struct {
 	Feedback   string
 	UserName   string
 	HomestayID uint
+	UserId     uint
 }
 
 func fromCore(dataCore homestay.HomestayCore) Homestay {
