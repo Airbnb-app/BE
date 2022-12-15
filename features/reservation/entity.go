@@ -30,7 +30,6 @@ type Homestay struct {
 }
 
 type Payment struct {
-	ID            uint
 	CreditCard    string
 	Name          string
 	CardNumber    string
