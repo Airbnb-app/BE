@@ -65,7 +65,8 @@ func (repo *userRepository) Update(input user.Core, id uint) error {
 // Delete implements user.Repository
 func (repo *userRepository) Delete(id uint) error {
 	var user User
-	tx := repo.db.Unscoped().Delete(&user, id) // proses delete
+	// tx := repo.db.Unscoped().Delete(&user, id) // proses delete
+	tx := repo.db.Delete(&user, id) // proses delete
 	if tx.Error != nil {
 		return tx.Error
 	}
