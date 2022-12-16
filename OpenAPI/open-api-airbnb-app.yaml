@@ -8,7 +8,7 @@ info:
   contact:
     email: apiteam@swagger.io
   license: 
-    name: Apache 2.0
+    name: Apache 2.0 
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 servers:
   # Added by API Auto Mocking Plugin
@@ -229,6 +229,8 @@ paths:
         - Users
       summary: "Upgrade User Permission" 
       description: "Upgrade User Permission From Normal User to Hoster"
+      security:
+        - JWTAuth: []
       requestBody:
         required: true
         content:
