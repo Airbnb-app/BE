@@ -30,7 +30,6 @@ func TestLogin(t *testing.T) {
 	})
 
 	t.Run("Failed Login, Wrong Password", func(t *testing.T) {
-		// inputData := auth.Core{Email: "sheena@duck.com", Password: "jigeumbogoshipo"}
 		repo.On("FindUser", mock.Anything).Return(auth.Core{}, nil, errors.New("failed to login, password didn't match, please check password again")).Once()
 		srv := New(repo)
 		response, _, err := srv.Login(auth.Core{Email: "sheena@duck.com", Password: "", Role: "User"})
@@ -45,8 +44,8 @@ func TestLogin(t *testing.T) {
 		srv := New(repo)
 		_, _, err := srv.Login(inputKosong)
 		assert.NotNil(t, err)
-		// assert.Equal(t, response, auth.Core{})
 		assert.EqualError(t, err, "failed to login, password didn't match, please check password again")
 		repo.AssertExpectations(t)
 	})
+
 }
