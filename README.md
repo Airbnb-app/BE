@@ -1,4 +1,4 @@
-<h1 align="center">:house: Airbnb SuperCopy aka NumpangTidur :house:</h1>
+<h1 align="center">:house: Airbnb SuperCopy a.k.a. NumpangTidur :house:</h1>
 
 <p align="center">
    💫 Proyek kolaborasi alterra BE 13 & FE 10 💫
@@ -8,7 +8,7 @@
 
 NumpangTidur merupakan suatu aplikasi yang memungkinan pengguna untuk menyewa penginapan atau menyediakan penginapan.
 
-# Fitur dari NumpangTidur adalah sebagai berikut:
+# Fitur:
 
 1. pengguna dapat membuat akun;
 2. pengguna dapat melakukan login;
@@ -31,3 +31,9 @@ NumpangTidur merupakan suatu aplikasi yang memungkinan pengguna untuk menyewa pe
 4. hoster dapat mengubah informasi dan menghapus penginapan yang dimiliki.
 
 # Skema
+
+![ERD]([https://user-images.githubusercontent.com/31031665/197016470-fcfee354-2165-4947-b121-8314528b23cb.png](https://github.com/GP-3-Kelompok-2/BE/blob/main/ERD-Project/erd-airbnb-app.jpg?raw=true))
+
+# Swagger
+
+![Swagger]([[https://user-images.githubusercontent.com/31031665/197016470-fcfee354-2165-4947-b121-8314528b23cb.png](https://github.com/GP-3-Kelompok-2/BE/blob/main/ERD-Project/erd-airbnb-app.jpg?raw=true](https://app.swaggerhub.com/apis-docs/yusnarsetiyadi/OpenAPI-Airbnb-APP-Project/1.0.0)))
