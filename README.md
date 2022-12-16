@@ -38,3 +38,37 @@ NumpangTidur merupakan suatu aplikasi yang memungkinan pengguna untuk menyewa pe
 
 https://app.swaggerhub.com/apis-docs/yusnarsetiyadi/OpenAPI-Airbnb-APP-Project/1.0.0
 
+# Teknologi yang kami gunakan
+
+1. golang
+2. shell
+3. aws
+4. docker
+
+# Cobain!
+
+Coba program yang kami buat dengan cara:
+A. coba fungsionalitas
+
+kunjungi laman [numpangtidur](https://numpangtidur.my.id)
+
+B. kustomisasi fungsionalitas
+
+1. clone repository ini:
+```
+git clone https://github.com/GP-3-Kelompok-2/BE.git
+```
+2. pindah ke folder BE
+```
+cd BE/
+```
+
+# Kontributor
+
+- [Aziz](https://github.com/aziz-wahyudin)
+- [Yusnar](https://github.com/yusnarsetiyadi)
+
+# Dukungan
+
+- [iffakhry](https://github.com/iffakhry) (Mentor BE)
+- [bagasdhitya](https://github.com/BagasAlterra) (Mentor FE)
