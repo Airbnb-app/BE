@@ -32,8 +32,8 @@ NumpangTidur merupakan suatu aplikasi yang memungkinan pengguna untuk menyewa pe
 
 # Skema
 
-![ERD]([https://user-images.githubusercontent.com/31031665/197016470-fcfee354-2165-4947-b121-8314528b23cb.png](https://github.com/GP-3-Kelompok-2/BE/blob/main/ERD-Project/erd-airbnb-app.jpg?raw=true))
+![ERD]([https://github.com/GP-3-Kelompok-2/BE/blob/main/ERD-Project/erd-airbnb-app.jpg?raw=true])
 
 # Swagger
 
-![Swagger]([[https://user-images.githubusercontent.com/31031665/197016470-fcfee354-2165-4947-b121-8314528b23cb.png](https://github.com/GP-3-Kelompok-2/BE/blob/main/ERD-Project/erd-airbnb-app.jpg?raw=true](https://app.swaggerhub.com/apis-docs/yusnarsetiyadi/OpenAPI-Airbnb-APP-Project/1.0.0)))
+![Swagger]([https://github.com/GP-3-Kelompok-2/BE/blob/main/ERD-Project/erd-airbnb-app.jpg?raw=true](https://app.swaggerhub.com/apis-docs/yusnarsetiyadi/OpenAPI-Airbnb-APP-Project/1.0.0])
