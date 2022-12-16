@@ -1,0 +1,33 @@
+<h1 align="center">:house: Airbnb SuperCopy aka NumpangTidur :house:</h1>
+
+<p align="center">
+   💫 Proyek kolaborasi alterra BE 13 & FE 10 💫
+</div>
+
+# Gambaran
+
+NumpangTidur merupakan suatu aplikasi yang memungkinan pengguna untuk menyewa penginapan atau menyediakan penginapan.
+
+# Fitur dari NumpangTidur adalah sebagai berikut:
+
+1. pengguna dapat membuat akun;
+2. pengguna dapat melakukan login;
+3. pengguna dapat mengubah informasi akun dan menghapus akun.
+
+--menyewa penginapan
+
+1. pengguna dapat melihat daftar seluruh penginapan yang ada di NumpangTidur;
+2. pengguna dapat mencari penginapan yang diinginkan berdasarkan nama penginapan;
+3. pengguna dapat mengecek ketersediaan penginapan;
+4. pengguna dapat menyewa penginapan;
+5. pengguna dapat melakukan penilaian dan memberi komentar pada penginapan yang disinggahi;
+6. penginapan yang disinggahi pengguna akan terekam di informasi perjalanan pengguna pada halaman profil akun.
+
+--penyedia penginapan
+
+1. sebelum menjadi penyedia penginapan, pengguna diharuskan meng-upgrade akun menjadi seorang penyedia penginapan--selanjutkan akan disebut hoster--dengan cara mengunggah foto penginapan yang ingin disewakan;
+2. setelah profil ter-upgrade, hoster dapat mengisi informasi detail tentang penginapan yang ingin disewakan;
+3. hoster dapat melihat informasi detail penginapan yang dimiliki disertai penilaian dan rating dari pengunjung;
+4. hoster dapat mengubah informasi dan menghapus penginapan yang dimiliki.
+
+# Skema
